@@ -8,7 +8,14 @@
 import Foundation
 
 class LoginViewModel {
-    func debugScreenTitle() -> String {
-        return("LoginViewModel is working")
+    
+    private let saveUserNameUseCase: SaveUserNameUseCase
+    
+    init(saveUserNameUseCase: SaveUserNameUseCase) {
+        self.saveUserNameUseCase = saveUserNameUseCase
+    }
+    
+    func saveUserName(userName: String) {
+        saveUserNameUseCase.saveUserName(userName: userName)
     }
 }
