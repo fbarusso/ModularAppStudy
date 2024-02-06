@@ -24,6 +24,7 @@
 		344371EA2B6D8489002CACB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		344371F02B6D85D0002CACB2 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		344371F22B6D89E5002CACB2 /* LoginModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LoginModule; sourceTree = "<group>"; };
+		3452AFDF2B7285F6008A8322 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = UIKitModule/Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +73,7 @@
 		344371F32B6D89F8002CACB2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3452AFDF2B7285F6008A8322 /* Package.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
