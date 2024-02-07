@@ -7,6 +7,7 @@
 
 import UIKit
 import UIKitModule
+import MoviesListModule
 
 class LoginViewController: UIViewController {
     
@@ -14,10 +15,10 @@ class LoginViewController: UIViewController {
     
     private let userNameTextField: UITextField = CustomTextField(placeholder: "Nome")
     
-    private let loginButton: CustomButton = {
+    private lazy var loginButton: CustomButton = {
         let customButton = CustomButton(title: "Entrar")
         
-        customButton.button.addTarget(LoginViewController.self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        customButton.button.addTarget( self, action: #selector(didTapLoginButton), for: .touchUpInside)
         
         return customButton
     }()
@@ -50,5 +51,7 @@ class LoginViewController: UIViewController {
     
     @objc func didTapLoginButton() {
         viewModel?.saveUserName(userName: userNameTextField.text)
+        let viewController = MoviesListContainer.createModule()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

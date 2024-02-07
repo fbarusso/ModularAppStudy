@@ -44,7 +44,7 @@ public class Network {
     }
 
     private func createDefaultHeaders() -> [String: String]? {
-        var headers = [
+        let headers = [
             "Content-Type": "application/json",
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzllMTQxNGEzNTc3ZDZkZWI1ODdlOGVlY2VkM2M0NCIsInN1YiI6IjY1YzI3ZGRiOTY1M2Y2MDE2MmVjZDk5MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6dup4MsKnOLBk-9dmx5x4tPEijMB9T2Ca_7isgUfvrQ"
         ]
