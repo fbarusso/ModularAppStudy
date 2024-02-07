@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MoviesListDataSource {
-    func getMoviesList(completion: @escaping (_ data: [[String: AnyObject]]?, _ success: Bool, _ error: String?) -> Void)
+    func getMoviesList(completion: @escaping (_ moviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void)
 }

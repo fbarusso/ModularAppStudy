@@ -13,6 +13,10 @@ class MoviesListViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        let dataSource = MoviesListDataSourceImpl()
+        dataSource.getMoviesList { data, success, error in
+            print(3)
+        }
     }
     
 
