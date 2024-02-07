@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		341C22E52B72ACBD000516BF /* MoviesListModule in Frameworks */ = {isa = PBXBuildFile; productRef = 341C22E42B72ACBD000516BF /* MoviesListModule */; };
 		344371DD2B6D8488002CACB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371DC2B6D8488002CACB2 /* AppDelegate.swift */; };
 		344371DF2B6D8488002CACB2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371DE2B6D8488002CACB2 /* SceneDelegate.swift */; };
 		344371E62B6D8489002CACB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 344371E52B6D8489002CACB2 /* Assets.xcassets */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		341C22E32B72AA6C000516BF /* MoviesListModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MoviesListModule; sourceTree = "<group>"; };
+		341C22E62B72AD87000516BF /* NetworkModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkModule; sourceTree = "<group>"; };
 		344371D92B6D8488002CACB2 /* ModularAppStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModularAppStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		344371DC2B6D8488002CACB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		344371DE2B6D8488002CACB2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,6 +28,7 @@
 		344371F02B6D85D0002CACB2 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		344371F22B6D89E5002CACB2 /* LoginModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LoginModule; sourceTree = "<group>"; };
 		3452AFDF2B7285F6008A8322 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = UIKitModule/Package.swift; sourceTree = "<group>"; };
+		3452AFE42B728E04008A8322 /* UIKitModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIKitModule; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				344371F52B6D89F8002CACB2 /* LoginModule in Frameworks */,
+				341C22E52B72ACBD000516BF /* MoviesListModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,9 @@
 		344371D02B6D8488002CACB2 = {
 			isa = PBXGroup;
 			children = (
+				341C22E62B72AD87000516BF /* NetworkModule */,
+				341C22E32B72AA6C000516BF /* MoviesListModule */,
+				3452AFE42B728E04008A8322 /* UIKitModule */,
 				344371F22B6D89E5002CACB2 /* LoginModule */,
 				344371DB2B6D8488002CACB2 /* ModularAppStudy */,
 				344371DA2B6D8488002CACB2 /* Products */,
@@ -96,6 +104,7 @@
 			name = ModularAppStudy;
 			packageProductDependencies = (
 				344371F42B6D89F8002CACB2 /* LoginModule */,
+				341C22E42B72ACBD000516BF /* MoviesListModule */,
 			);
 			productName = ModularAppStudy;
 			productReference = 344371D92B6D8488002CACB2 /* ModularAppStudy.app */;
@@ -368,6 +377,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		341C22E42B72ACBD000516BF /* MoviesListModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MoviesListModule;
+		};
 		344371F42B6D89F8002CACB2 /* LoginModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LoginModule;

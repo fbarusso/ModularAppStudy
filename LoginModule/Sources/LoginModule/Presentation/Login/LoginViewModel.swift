@@ -15,7 +15,7 @@ class LoginViewModel {
         self.saveUserNameUseCase = saveUserNameUseCase
     }
     
-    func saveUserName(userName: String) {
-        saveUserNameUseCase.saveUserName(userName: userName)
+    func saveUserName(userName: String?) {
+        saveUserNameUseCase.saveUserName(userName: userName ?? "")
     }
 }

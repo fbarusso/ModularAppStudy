@@ -7,6 +7,7 @@
 
 import UIKit
 import LoginModule
+import MoviesListModule
 
 class AppCoordinator {
     var navigationController: UINavigationController
@@ -17,6 +18,11 @@ class AppCoordinator {
     
     func navigateToLogin() {
         let viewController = LoginContainer.createModule()
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func navigateToMoviesList() {
+        let viewController = MoviesListContainer.createModule()
         navigationController.pushViewController(viewController, animated: true)
     }
 }
