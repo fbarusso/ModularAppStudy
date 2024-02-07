@@ -11,7 +11,7 @@ import Swinject
 public class LoginContainer {
     static var sharedContainer = Container()
     
-    public static func createModule() -> UIViewController {
+    public static func createModule(navigationController: UINavigationController) -> UIViewController {
         LoginContainer.sharedContainer.register(LoginDataSource.self) { _ in
             LoginDataSourceImpl()
         }
@@ -29,6 +29,10 @@ public class LoginContainer {
         LoginContainer.sharedContainer.register(LoginViewModel.self) { resolver in
             let saveUserNameUseCase = resolver.resolve(SaveUserNameUseCase.self)!
             return LoginViewModel(saveUserNameUseCase: saveUserNameUseCase)
+        }
+        
+        LoginContainer.sharedContainer.register(LoginCoordinator.self) { _ in
+            LoginCoordinator(navigationController: navigationController)
         }
         
         return LoginViewController()

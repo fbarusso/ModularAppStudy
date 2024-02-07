@@ -11,7 +11,8 @@ import MoviesListModule
 
 class LoginViewController: UIViewController {
     
-    var viewModel = LoginContainer.sharedContainer.resolve(LoginViewModel.self)
+    private let coordinator = LoginContainer.sharedContainer.resolve(LoginCoordinator.self)
+    private let viewModel = LoginContainer.sharedContainer.resolve(LoginViewModel.self)
     
     private let userNameTextField: UITextField = CustomTextField(placeholder: "Nome")
     
@@ -51,7 +52,6 @@ class LoginViewController: UIViewController {
     
     @objc func didTapLoginButton() {
         viewModel?.saveUserName(userName: userNameTextField.text)
-        let viewController = MoviesListContainer.createModule()
-        navigationController?.pushViewController(viewController, animated: true)
+        coordinator?.navigateToMoviesList()
     }
 }

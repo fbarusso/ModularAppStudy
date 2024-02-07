@@ -17,7 +17,7 @@ class AppCoordinator {
     }
     
     func navigateToLogin() {
-        let viewController = LoginContainer.createModule()
+        let viewController = LoginContainer.createModule(navigationController: navigationController)
         navigationController.pushViewController(viewController, animated: true)
     }
     
