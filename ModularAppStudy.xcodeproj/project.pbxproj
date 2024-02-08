@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340A4CF32B752A870017C270 /* UIKitModule in Frameworks */ = {isa = PBXBuildFile; productRef = 340A4CF22B752A870017C270 /* UIKitModule */; };
 		341C22E52B72ACBD000516BF /* MoviesListModule in Frameworks */ = {isa = PBXBuildFile; productRef = 341C22E42B72ACBD000516BF /* MoviesListModule */; };
 		344371DD2B6D8488002CACB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371DC2B6D8488002CACB2 /* AppDelegate.swift */; };
 		344371DF2B6D8488002CACB2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371DE2B6D8488002CACB2 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				344371F52B6D89F8002CACB2 /* LoginModule in Frameworks */,
+				340A4CF32B752A870017C270 /* UIKitModule in Frameworks */,
 				341C22E52B72ACBD000516BF /* MoviesListModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +107,7 @@
 			packageProductDependencies = (
 				344371F42B6D89F8002CACB2 /* LoginModule */,
 				341C22E42B72ACBD000516BF /* MoviesListModule */,
+				340A4CF22B752A870017C270 /* UIKitModule */,
 			);
 			productName = ModularAppStudy;
 			productReference = 344371D92B6D8488002CACB2 /* ModularAppStudy.app */;
@@ -377,6 +380,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		340A4CF22B752A870017C270 /* UIKitModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UIKitModule;
+		};
 		341C22E42B72ACBD000516BF /* MoviesListModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MoviesListModule;
