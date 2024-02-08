@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
     }
     
     func setupView() {
-        setDefaultGradientBackground()
+        view.backgroundColor = UIColor(customColor: .backgroundDark)
         
         view.addSubview(userNameTextField)
         userNameTextField.center(inView: view)

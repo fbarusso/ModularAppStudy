@@ -7,9 +7,17 @@
 
 import Foundation
 
+protocol MoviesListViewModelDelegate {
+    func didGetMoviesList()
+}
+
 class MoviesListViewModel {
     
+    var delegate: MoviesListViewModelDelegate?
+    
     private let getMoviesListUseCase: GetMoviesListUseCase
+    
+    var moviesList: [MovieEntity] = []
     
     init(getMoviesListUseCase: GetMoviesListUseCase) {
         self.getMoviesListUseCase = getMoviesListUseCase
@@ -17,7 +25,9 @@ class MoviesListViewModel {
     
     func getMoviesList() {
         getMoviesListUseCase.getMoviesList { moviesList, success, error in
-            print(3)
+            guard let moviesList = moviesList else { return }
+            self.moviesList = moviesList
+            self.delegate?.didGetMoviesList()
         }
     }
 }
