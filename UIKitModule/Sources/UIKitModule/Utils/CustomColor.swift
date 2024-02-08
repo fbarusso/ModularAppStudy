@@ -8,8 +8,8 @@
 import UIKit
 
 public enum CustomColor: String {
-    case backgroundDark = "#222831"
-    case themeDark = "#393E46"
-    case themeLight = "#EEEEEE"
-    case accent = "#00ADB5"
+    case themeDark = "#252A34"
+    case themeLight = "#EAEAEA"
+    case accentMagenta = "#FF2E63"
+    case accentCyan = "#08D9D6"
 }

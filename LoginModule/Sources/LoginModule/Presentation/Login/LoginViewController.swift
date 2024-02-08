@@ -1,21 +1,21 @@
 //
 //  LoginViewController.swift
-//  
+//
 //
 //  Created by MB Labs on 02/02/24.
 //
 
+import MoviesListModule
 import UIKit
 import UIKitModule
-import MoviesListModule
 
 class LoginViewController: UIViewController {
-    
     // MARK: - Attributes
     
     private let coordinator = LoginContainer.sharedContainer.resolve(LoginCoordinator.self)
     private let viewModel = LoginContainer.sharedContainer.resolve(LoginViewModel.self)
     
+    private let loginButtonWidth = 120.0
     
     // MARK: - Components
     
@@ -23,18 +23,25 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         
         label.text = "ModularMovies"
-        label.font = UIFont(customFont: .pacificoRegular, size: 32)
-        label.textColor = UIColor(customColor: .accent)
+        label.font = UIFont(customFont: .pacificoRegular, size: FontSize.big)
+        label.textColor = UIColor(customColor: .accentMagenta)
         
         return label
     }()
     
-    private let userNameTextField: UITextField = CustomTextField(placeholder: "Nome")
+    private lazy var userNameTextField: CustomTextField = {
+        let textField = CustomTextField(placeholder: "Nome")
+       
+        textField.addTarget(self, action: #selector(userNameDidChange), for: .editingChanged)
+        
+        return textField
+    }()
     
     private lazy var loginButton: CustomButton = {
-        let customButton = CustomButton(title: "Entrar")
+        let customButton = CustomButton(title: "Entrar", width: loginButtonWidth)
         
-        customButton.button.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        customButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        customButton.isEnabled = false
         
         return customButton
     }()
@@ -47,30 +54,23 @@ class LoginViewController: UIViewController {
     }
     
     func setupView() {
-        view.backgroundColor = UIColor(customColor: .backgroundDark)
+        view.backgroundColor = UIColor(customColor: .themeDark)
         
         view.addSubview(titleLabel)
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 64)
-        titleLabel.centerX(inView: view)
-        
-        view.addSubview(userNameTextField)
-        userNameTextField.center(inView: view)
-        userNameTextField.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: UIConstants.mediumHorizontalPadding, paddingRight: UIConstants.mediumHorizontalPadding)
-        userNameTextField.addTarget(self, action: #selector(userNameDidChange), for: .editingChanged)
-
+        titleLabel.center(inView: view)
         
         view.addSubview(loginButton)
-        loginButton.anchor(top: userNameTextField.bottomAnchor, left: userNameTextField.leftAnchor, right: userNameTextField.rightAnchor, paddingTop: UIConstants.mediumHorizontalPadding)
+        loginButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: VerticalPadding.big, paddingRight: HorizontalPadding.medium)
+        
+        view.addSubview(userNameTextField)
+        userNameTextField.anchor(left: view.leftAnchor, bottom: loginButton.topAnchor, right: view.rightAnchor, paddingLeft: HorizontalPadding.medium, paddingBottom: VerticalPadding.big, paddingRight: HorizontalPadding.medium)
     }
     
     // MARK: - Actions
     
     @objc func userNameDidChange(sender: UITextField) {
-        if let userName = sender.text {
-            loginButton.isValid = !userName.isEmpty
-        } else {
-            loginButton.isValid = false
-        }
+        guard let text = sender.text else { return }
+        loginButton.isEnabled = !text.isEmpty
     }
     
     @objc func didTapLoginButton() {

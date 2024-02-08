@@ -7,12 +7,18 @@
 
 import Foundation
 
-public enum UIConstants {
-    // MARK: - Horizontal padding
-    public static let smallHorizontalPadding = 16.0
-    public static let mediumHorizontalPadding = 32.0
-    
-    // MARK: - Vertical padding
-    public static let smallVerticalPadding = 8.0
-    public static let mediumVerticalPadding = 16.0
+public struct HorizontalPadding {
+    public static let small = 16.0
+    public static let medium = 32.0
+}
+
+public struct VerticalPadding {
+    public static let small = 8.0
+    public static let medium = 16.0
+    public static let big = 32.0
+    public static let veryBig = 64.0
+}
+
+public struct FontSize {
+    public static let big = 48.0
 }

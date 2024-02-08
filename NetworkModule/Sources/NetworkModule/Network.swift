@@ -9,19 +9,18 @@ import Alamofire
 import Foundation
 
 public class Network {
-    
     public static let sharedInstance = Network()
-    
+
     var alamofireManager: Alamofire.Session
-    
+
     init() {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 20
         configuration.timeoutIntervalForResource = 20
-        
+
         alamofireManager = Alamofire.Session(configuration: configuration)
     }
-    
+
     public func request(
         path: String,
         method: HTTPMethod,

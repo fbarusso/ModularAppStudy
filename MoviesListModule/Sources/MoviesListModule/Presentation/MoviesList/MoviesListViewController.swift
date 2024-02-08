@@ -28,7 +28,7 @@ class MoviesListViewController: UIViewController {
         title = "Em cartaz"
         
         view.addSubview(moviesListTableView)
-        moviesListTableView.fillSuperview(padding: UIConstants.smallVerticalPadding)
+        moviesListTableView.fillSuperview(padding: VerticalPadding.medium)
         moviesListTableView.delegate = self
         moviesListTableView.dataSource = self
         moviesListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
