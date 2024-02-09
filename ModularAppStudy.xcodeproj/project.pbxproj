@@ -14,7 +14,6 @@
 		344371E92B6D8489002CACB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344371E72B6D8489002CACB2 /* LaunchScreen.storyboard */; };
 		344371F12B6D85D0002CACB2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371F02B6D85D0002CACB2 /* AppCoordinator.swift */; };
 		34B36C652B76B25200A6ABF1 /* LoginModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34B36C642B76B25200A6ABF1 /* LoginModule */; };
-		34B36C692B76B2CC00A6ABF1 /* MoviesListModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34B36C682B76B2CC00A6ABF1 /* MoviesListModule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +37,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				34B36C652B76B25200A6ABF1 /* LoginModule in Frameworks */,
-				34B36C692B76B2CC00A6ABF1 /* MoviesListModule in Frameworks */,
 				340A4CF32B752A870017C270 /* UIKitModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,7 +105,6 @@
 			packageProductDependencies = (
 				340A4CF22B752A870017C270 /* UIKitModule */,
 				34B36C642B76B25200A6ABF1 /* LoginModule */,
-				34B36C682B76B2CC00A6ABF1 /* MoviesListModule */,
 			);
 			productName = ModularAppStudy;
 			productReference = 344371D92B6D8488002CACB2 /* ModularAppStudy.app */;
@@ -389,10 +386,6 @@
 		34B36C642B76B25200A6ABF1 /* LoginModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LoginModule;
-		};
-		34B36C682B76B2CC00A6ABF1 /* MoviesListModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MoviesListModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
