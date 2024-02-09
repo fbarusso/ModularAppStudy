@@ -1,12 +1,12 @@
 //
-//  MoviesListDataSource.swift
+//  GetNowPlayingMoviesListUseCase.swift
 //
 //
-//  Created by MB Labs on 06/02/24.
+//  Created by MB Labs on 07/02/24.
 //
 
 import Foundation
 
-protocol MoviesListDataSource {
+protocol GetNowPlayingMoviesListUseCase {
     func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void)
 }

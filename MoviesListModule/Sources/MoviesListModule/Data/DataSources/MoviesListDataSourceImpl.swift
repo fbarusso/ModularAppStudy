@@ -9,7 +9,7 @@ import Foundation
 import NetworkModule
 
 class MoviesListDataSourceImpl: MoviesListDataSource {
-    func getMoviesList(completion: @escaping (_ moviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
+    func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
         Network.sharedInstance.request(path: "/movie/now_playing?language=en-US&page=1", method: .get) { response, data, error in
             if let error = error {
                 completion(nil, false, error.localizedDescription)

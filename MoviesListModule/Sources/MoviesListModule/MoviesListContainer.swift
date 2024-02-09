@@ -21,14 +21,14 @@ public class MoviesListContainer {
             return MoviesListRepositoryImpl(moviesListDataSource: moviesListDataSource)
         }
         
-        MoviesListContainer.sharedContainer.register(GetMoviesListUseCase.self) { resolver in
+        MoviesListContainer.sharedContainer.register(GetNowPlayingMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
-            return GetMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
+            return GetNowPlayingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
         
         MoviesListContainer.sharedContainer.register(MoviesListViewModel.self) { resolver in
-            let getMoviesListUseCase = resolver.resolve(GetMoviesListUseCase.self)!
-            return MoviesListViewModel(getMoviesListUseCase: getMoviesListUseCase)
+            let getNowPlayingMoviesListUseCase = resolver.resolve(GetNowPlayingMoviesListUseCase.self)!
+            return MoviesListViewModel(getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase)
         }
         
         return MoviesListViewController()

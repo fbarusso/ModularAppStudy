@@ -8,26 +8,26 @@
 import Foundation
 
 protocol MoviesListViewModelDelegate {
-    func didGetMoviesList()
+    func didGetNowPlayingMoviesList()
 }
 
 class MoviesListViewModel {
     
     var delegate: MoviesListViewModelDelegate?
     
-    private let getMoviesListUseCase: GetMoviesListUseCase
+    private let getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase
     
-    var moviesList: [MovieEntity] = []
+    var nowPlayingMoviesList: [MovieEntity] = []
     
-    init(getMoviesListUseCase: GetMoviesListUseCase) {
-        self.getMoviesListUseCase = getMoviesListUseCase
+    init(getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase) {
+        self.getNowPlayingMoviesListUseCase = getNowPlayingMoviesListUseCase
     }
     
-    func getMoviesList() {
-        getMoviesListUseCase.getMoviesList { moviesList, success, error in
-            guard let moviesList = moviesList else { return }
-            self.moviesList = moviesList
-            self.delegate?.didGetMoviesList()
+    func getNowPlayingMoviesList() {
+        getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { nowPlayingMoviesList, success, error in
+            guard let nowPlayingMoviesList = nowPlayingMoviesList else { return }
+            self.nowPlayingMoviesList = nowPlayingMoviesList
+            self.delegate?.didGetNowPlayingMoviesList()
         }
     }
 }

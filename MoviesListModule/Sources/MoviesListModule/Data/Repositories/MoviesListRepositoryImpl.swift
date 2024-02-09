@@ -15,9 +15,9 @@ class MoviesListRepositoryImpl: MoviesListRepository {
         self.moviesListDataSource = moviesListDataSource
     }
     
-    func getMoviesList(completion: @escaping (_ moviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
-        moviesListDataSource.getMoviesList { moviesList, success, error in
-            completion(moviesList, success, error)
+    func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
+        moviesListDataSource.getNowPlayingMoviesList { nowPlayingMoviesList, success, error in
+            completion(nowPlayingMoviesList, success, error)
         }
     }
 }
