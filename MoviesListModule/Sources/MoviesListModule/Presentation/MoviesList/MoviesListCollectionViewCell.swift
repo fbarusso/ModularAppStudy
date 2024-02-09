@@ -9,7 +9,8 @@ import UIKit
 
 class MoviesListCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = String(describing: MoviesListCollectionViewCell.self)
+    static let nowPlayingMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("nowPlayingMoviesList")
+    static let popularMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("popularMoviesList")
     
     private let imageView = UIImageView()
     

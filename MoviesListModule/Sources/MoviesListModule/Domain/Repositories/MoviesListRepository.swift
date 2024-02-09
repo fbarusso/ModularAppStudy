@@ -9,4 +9,5 @@ import Foundation
 
 protocol MoviesListRepository {
     func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void)
+    func getPopularMoviesList(completion: @escaping (_ popularMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void)
 }

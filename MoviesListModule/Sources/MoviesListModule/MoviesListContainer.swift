@@ -5,10 +5,10 @@
 //  Created by MB Labs on 06/02/24.
 //
 
-import UIKit
 import Swinject
+import UIKit
 
-public class MoviesListContainer {
+public enum MoviesListContainer {
     static var sharedContainer = Container()
     
     public static func createModule() -> UIViewController {
@@ -26,9 +26,15 @@ public class MoviesListContainer {
             return GetNowPlayingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
         
+        MoviesListContainer.sharedContainer.register(GetPopularMoviesListUseCase.self) { resolver in
+            let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
+            return GetPopularMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
+        }
+        
         MoviesListContainer.sharedContainer.register(MoviesListViewModel.self) { resolver in
             let getNowPlayingMoviesListUseCase = resolver.resolve(GetNowPlayingMoviesListUseCase.self)!
-            return MoviesListViewModel(getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase)
+            let getPopularMoviesListUseCase = resolver.resolve(GetPopularMoviesListUseCase.self)!
+            return MoviesListViewModel(getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: getPopularMoviesListUseCase)
         }
         
         return MoviesListViewController()

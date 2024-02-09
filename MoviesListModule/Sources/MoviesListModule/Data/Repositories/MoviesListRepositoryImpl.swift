@@ -20,4 +20,10 @@ class MoviesListRepositoryImpl: MoviesListRepository {
             completion(nowPlayingMoviesList, success, error)
         }
     }
+    
+    func getPopularMoviesList(completion: @escaping (_ popularMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
+        moviesListDataSource.getPopularMoviesList { popularMoviesList, success, error in
+            completion(popularMoviesList, success, error)
+        }
+    }
 }

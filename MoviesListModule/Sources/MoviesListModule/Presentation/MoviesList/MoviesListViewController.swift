@@ -11,7 +11,7 @@ import UIKitModule
 class MoviesListViewController: UIViewController {
     // MARK: - Properties
     
-    private let viewModel = MoviesListContainer.sharedContainer.resolve(MoviesListViewModel.self)
+    private let viewModel = MoviesListContainer.sharedContainer.resolve(MoviesListViewModel.self)!
     private let collectionViewHeigth = 200.0
     private let collectionViewCellWidthRatio = 0.66
     
@@ -29,14 +29,27 @@ class MoviesListViewController: UIViewController {
     
     private var nowPlayingMoviesListCollectionView: UICollectionView?
     
+    private var popularLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "Populares"
+        label.font = .systemFont(ofSize: FontSize.big, weight: .bold)
+        label.textColor = UIColor(customColor: .themeLight)
+        
+        return label
+    }()
+    
+    private var popularMoviesListCollectionView: UICollectionView?
+    
     // MARK: - Lifecycle
         
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel?.getNowPlayingMoviesList()
-        viewModel?.delegate = self
         setupView()
+        viewModel.delegate = self
+        viewModel.getNowPlayingMoviesList()
+        viewModel.getPopularMoviesList()
     }
     
     // MARK: - Helpers
@@ -47,45 +60,76 @@ class MoviesListViewController: UIViewController {
         view.addSubview(nowPlayingLabel)
         nowPlayingLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
         
+        setupNowPlayingMoviesListCollectionView()
+    }
+    
+    private func setupNowPlayingMoviesListCollectionView() {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionViewFlowLayout.minimumLineSpacing = VerticalPadding.medium
         collectionViewFlowLayout.scrollDirection = .horizontal
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 0, left: VerticalPadding.small, bottom: 0, right: VerticalPadding.small)
         
         nowPlayingMoviesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
+        guard let nowPlayingMoviesListCollectionView = nowPlayingMoviesListCollectionView else { return }
         
-        guard let collectionView = nowPlayingMoviesListCollectionView else { return }
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .clear
+        nowPlayingMoviesListCollectionView.showsHorizontalScrollIndicator = false
+        nowPlayingMoviesListCollectionView.backgroundColor = .clear
         
-        view.addSubview(collectionView)
-        collectionView.anchor(top: nowPlayingLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeigth)
+        view.addSubview(nowPlayingMoviesListCollectionView)
+        nowPlayingMoviesListCollectionView.anchor(top: nowPlayingLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeigth)
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.reuseIdentifier)
+        nowPlayingMoviesListCollectionView.delegate = self
+        nowPlayingMoviesListCollectionView.dataSource = self
+        nowPlayingMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier)
+        
+        setupPopularMoviesListCollectionView(nowPlayingMoviesListCollectionView: nowPlayingMoviesListCollectionView)
+    }
+    
+    private func setupPopularMoviesListCollectionView(nowPlayingMoviesListCollectionView: UICollectionView) {
+        view.addSubview(popularLabel)
+        popularLabel.anchor(top: nowPlayingMoviesListCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        
+        let collectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionViewFlowLayout.minimumLineSpacing = VerticalPadding.medium
+        collectionViewFlowLayout.scrollDirection = .horizontal
+        collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 0, left: VerticalPadding.small, bottom: 0, right: VerticalPadding.small)
+        
+        popularMoviesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
+        guard let popularMoviesListCollectionView = popularMoviesListCollectionView else { return }
+        
+        popularMoviesListCollectionView.showsHorizontalScrollIndicator = false
+        popularMoviesListCollectionView.backgroundColor = .clear
+        
+        view.addSubview(popularMoviesListCollectionView)
+        popularMoviesListCollectionView.anchor(top: popularLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeigth)
+        
+        popularMoviesListCollectionView.delegate = self
+        popularMoviesListCollectionView.dataSource = self
+        popularMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.popularMoviesListReuseIdentifier)
     }
 }
 
 // MARK: - UICollectionView protocols
 
 extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel?.nowPlayingMoviesList.count ?? 0
+        return collectionView == nowPlayingMoviesListCollectionView ? viewModel.nowPlayingMoviesList.count : viewModel.popularMoviesList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.reuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
-        
-        if let movieEntity = viewModel?.nowPlayingMoviesList[indexPath.row] {
-            cell.setup(movieEntity: movieEntity)
+        if collectionView == nowPlayingMoviesListCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
+            
+            cell.setup(movieEntity: viewModel.nowPlayingMoviesList[indexPath.row])
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.popularMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
+            
+            cell.setup(movieEntity: viewModel.popularMoviesList[indexPath.row])
+            
+            return cell
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,5 +144,9 @@ extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDa
 extension MoviesListViewController: MoviesListViewModelDelegate {
     func didGetNowPlayingMoviesList() {
         nowPlayingMoviesListCollectionView?.reloadData()
+    }
+    
+    func didGetPopularMoviesList() {
+        popularMoviesListCollectionView?.reloadData()
     }
 }

@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		340A4CF32B752A870017C270 /* UIKitModule in Frameworks */ = {isa = PBXBuildFile; productRef = 340A4CF22B752A870017C270 /* UIKitModule */; };
-		341C22E52B72ACBD000516BF /* MoviesListModule in Frameworks */ = {isa = PBXBuildFile; productRef = 341C22E42B72ACBD000516BF /* MoviesListModule */; };
 		344371DD2B6D8488002CACB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371DC2B6D8488002CACB2 /* AppDelegate.swift */; };
 		344371DF2B6D8488002CACB2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371DE2B6D8488002CACB2 /* SceneDelegate.swift */; };
 		344371E62B6D8489002CACB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 344371E52B6D8489002CACB2 /* Assets.xcassets */; };
 		344371E92B6D8489002CACB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344371E72B6D8489002CACB2 /* LaunchScreen.storyboard */; };
 		344371F12B6D85D0002CACB2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371F02B6D85D0002CACB2 /* AppCoordinator.swift */; };
-		344371F52B6D89F8002CACB2 /* LoginModule in Frameworks */ = {isa = PBXBuildFile; productRef = 344371F42B6D89F8002CACB2 /* LoginModule */; };
+		34B36C652B76B25200A6ABF1 /* LoginModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34B36C642B76B25200A6ABF1 /* LoginModule */; };
+		34B36C692B76B2CC00A6ABF1 /* MoviesListModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34B36C682B76B2CC00A6ABF1 /* MoviesListModule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +37,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				344371F52B6D89F8002CACB2 /* LoginModule in Frameworks */,
+				34B36C652B76B25200A6ABF1 /* LoginModule in Frameworks */,
+				34B36C692B76B2CC00A6ABF1 /* MoviesListModule in Frameworks */,
 				340A4CF32B752A870017C270 /* UIKitModule in Frameworks */,
-				341C22E52B72ACBD000516BF /* MoviesListModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,9 +105,9 @@
 			);
 			name = ModularAppStudy;
 			packageProductDependencies = (
-				344371F42B6D89F8002CACB2 /* LoginModule */,
-				341C22E42B72ACBD000516BF /* MoviesListModule */,
 				340A4CF22B752A870017C270 /* UIKitModule */,
+				34B36C642B76B25200A6ABF1 /* LoginModule */,
+				34B36C682B76B2CC00A6ABF1 /* MoviesListModule */,
 			);
 			productName = ModularAppStudy;
 			productReference = 344371D92B6D8488002CACB2 /* ModularAppStudy.app */;
@@ -314,6 +314,7 @@
 				INFOPLIST_FILE = ModularAppStudy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -341,6 +342,7 @@
 				INFOPLIST_FILE = ModularAppStudy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -384,13 +386,13 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = UIKitModule;
 		};
-		341C22E42B72ACBD000516BF /* MoviesListModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MoviesListModule;
-		};
-		344371F42B6D89F8002CACB2 /* LoginModule */ = {
+		34B36C642B76B25200A6ABF1 /* LoginModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LoginModule;
+		};
+		34B36C682B76B2CC00A6ABF1 /* MoviesListModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MoviesListModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
