@@ -29,7 +29,7 @@ public class Network {
         completion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void
     ) {
         let headers = headers ?? createDefaultHeaders()
-        let url = ("https://api.themoviedb.org/3" + path)
+        let url = (NetworkConstants.baseURL + path)
 
         AF.request(
             url,
@@ -45,7 +45,7 @@ public class Network {
     private func createDefaultHeaders() -> [String: String] {
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzllMTQxNGEzNTc3ZDZkZWI1ODdlOGVlY2VkM2M0NCIsInN1YiI6IjY1YzI3ZGRiOTY1M2Y2MDE2MmVjZDk5MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6dup4MsKnOLBk-9dmx5x4tPEijMB9T2Ca_7isgUfvrQ"
+            "Authorization": NetworkConstants.apiKey
         ]
 
         return headers

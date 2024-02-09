@@ -15,19 +15,19 @@ class MoviesListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        addSubview(imageView)
+        imageView.fillSuperview()
+    }
+    
+    override func prepareForReuse() {
+        imageView.kf.cancelDownloadTask()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
-        addSubview(imageView)
-        imageView.fillSuperview()
-        imageView.layer.borderWidth = 2.0
-        imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.backgroundColor = .red
+    func setup(movieEntity: MovieEntity) {
+        imageView.setImageWithCaching(imagePath: movieEntity.posterPath, size: .w400)
     }
-    
 }

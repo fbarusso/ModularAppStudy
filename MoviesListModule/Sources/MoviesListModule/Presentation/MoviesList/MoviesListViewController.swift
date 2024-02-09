@@ -81,6 +81,10 @@ extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.reuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
         
+        if let movieEntity = viewModel?.nowPlayingMoviesList[indexPath.row] {
+            cell.setup(movieEntity: movieEntity)
+        }
+        
         return cell
     }
     
