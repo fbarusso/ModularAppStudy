@@ -28,7 +28,7 @@ class MoviesListViewModel {
 
     func getNowPlayingMoviesList() {
         getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { nowPlayingMoviesList, _, _ in
-            guard let nowPlayingMoviesList = nowPlayingMoviesList else { return }
+            guard let nowPlayingMoviesList else { return }
             self.nowPlayingMoviesList = nowPlayingMoviesList
             self.delegate?.didGetNowPlayingMoviesList()
         }
@@ -36,7 +36,7 @@ class MoviesListViewModel {
 
     func getPopularMoviesList() {
         getPopularMoviesListUseCase.getPopularMoviesListUseCase { popularMoviesList, _, _ in
-            guard let popularMoviesList = popularMoviesList else { return }
+            guard let popularMoviesList else { return }
             self.popularMoviesList = popularMoviesList
             self.delegate?.didGetPopularMoviesList()
         }

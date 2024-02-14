@@ -15,7 +15,7 @@ public enum ImageSize: String {
 
 public extension UIImageView {
     func setImageWithCaching(imagePath: String?, size: ImageSize) {
-        guard let imagePath = imagePath else { return }
+        guard let imagePath else { return }
         let url = URL(string: "https://image.tmdb.org/t/p/\(size.rawValue)\(imagePath)")
         kf.setImage(with: url)
     }

@@ -70,7 +70,7 @@ class MoviesListViewController: UIViewController {
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 0, left: VerticalPadding.small, bottom: 0, right: VerticalPadding.small)
 
         nowPlayingMoviesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        guard let nowPlayingMoviesListCollectionView = nowPlayingMoviesListCollectionView else { return }
+        guard let nowPlayingMoviesListCollectionView else { return }
 
         nowPlayingMoviesListCollectionView.showsHorizontalScrollIndicator = false
         nowPlayingMoviesListCollectionView.backgroundColor = .clear
@@ -95,7 +95,7 @@ class MoviesListViewController: UIViewController {
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 0, left: VerticalPadding.small, bottom: 0, right: VerticalPadding.small)
 
         popularMoviesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        guard let popularMoviesListCollectionView = popularMoviesListCollectionView else { return }
+        guard let popularMoviesListCollectionView else { return }
 
         popularMoviesListCollectionView.showsHorizontalScrollIndicator = false
         popularMoviesListCollectionView.backgroundColor = .clear
@@ -113,7 +113,7 @@ class MoviesListViewController: UIViewController {
 
 extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return collectionView == nowPlayingMoviesListCollectionView ? viewModel.nowPlayingMoviesList.count : viewModel.popularMoviesList.count
+        collectionView == nowPlayingMoviesListCollectionView ? viewModel.nowPlayingMoviesList.count : viewModel.popularMoviesList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

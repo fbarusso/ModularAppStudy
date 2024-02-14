@@ -31,20 +31,20 @@ public class CustomTextField: UITextField {
         layer.borderWidth = borderWidth
         layer.cornerRadius = cornerRadius
 
-        if let padding = padding {
+        if let padding {
             self.padding = padding
         }
     }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        bounds.inset(by: padding)
     }
 
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        bounds.inset(by: padding)
     }
 
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        bounds.inset(by: padding)
     }
 }

@@ -26,7 +26,7 @@ public class CustomButton: UIButton {
 
         setHeight(height)
 
-        if let width = width {
+        if let width {
             setWidth(width)
         }
 
