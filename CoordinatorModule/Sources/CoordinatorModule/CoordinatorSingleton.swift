@@ -12,5 +12,17 @@ public class CoordinatorSingleton {
     public var coordinator: Coordinator?
     public var navigationController: UINavigationController?
 
+    public static func navigate(viewController: UIViewController, animated: Bool = true) {
+        shared.navigationController?.pushViewController(viewController, animated: animated)
+    }
+
+    public static func navigateToLogin() {
+        shared.coordinator?.navigateToLogin()
+    }
+
+    public static func navigateToMoviesList() {
+        shared.coordinator?.navigateToMoviesList()
+    }
+
     private init() {}
 }

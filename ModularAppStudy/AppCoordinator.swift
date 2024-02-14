@@ -21,6 +21,6 @@ class AppCoordinator {
         let coordinatorImpl = CoordinatorImpl(navigationController: navigationController)
         CoordinatorSingleton.shared.coordinator = coordinatorImpl
         CoordinatorSingleton.shared.navigationController = navigationController
-        CoordinatorSingleton.shared.coordinator?.navigateToLogin()
+        CoordinatorSingleton.navigateToLogin()
     }
 }

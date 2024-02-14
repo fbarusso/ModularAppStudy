@@ -10,6 +10,6 @@ import UIKit
 
 class LoginCoordinator {
     func navigateToMoviesList() {
-        CoordinatorSingleton.shared.coordinator?.navigateToMoviesList()
+        CoordinatorSingleton.navigateToMoviesList()
     }
 }

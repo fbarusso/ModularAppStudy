@@ -10,6 +10,6 @@ import UIKit
 
 class MoviesListCoordinator {
     func navigateToMovieDetails() {
-        CoordinatorSingleton.shared.navigationController?.pushViewController(MovieDetailsViewController(), animated: true)
+        CoordinatorSingleton.navigate(viewController: MovieDetailsViewController())
     }
 }
