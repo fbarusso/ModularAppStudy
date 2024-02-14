@@ -18,9 +18,9 @@ class AppCoordinator {
     }
 
     func startNavigation() {
-        let coordinatorImpl = CoordinatorImpl(navigationController: navigationController)
-        CoordinatorSingleton.shared.coordinator = coordinatorImpl
-        CoordinatorSingleton.shared.navigationController = navigationController
+        let coordinator = CoordinatorImpl(navigationController: navigationController)
+        let coordinatorSingletonConfiguration = CoordinatorSingletonConfiguration(coordinator: coordinator, navigationController: navigationController)
+        CoordinatorSingleton.setup(configuration: coordinatorSingletonConfiguration)
         CoordinatorSingleton.navigateToLogin()
     }
 }

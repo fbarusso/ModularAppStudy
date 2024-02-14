@@ -9,7 +9,7 @@ import Swinject
 import UIKit
 
 public enum MoviesListContainer {
-    static var sharedContainer = Container()
+    static var shared = Container()
 
     public static func createModule() -> UIViewController {
         registerCoordinator()
@@ -21,38 +21,38 @@ public enum MoviesListContainer {
     }
 
     private static func registerCoordinator() {
-        MoviesListContainer.sharedContainer.register(MoviesListCoordinator.self) { _ in
+        MoviesListContainer.shared.register(MoviesListCoordinator.self) { _ in
             MoviesListCoordinator()
         }
     }
 
     private static func registerDataSource() {
-        MoviesListContainer.sharedContainer.register(MoviesListDataSource.self) { _ in
+        MoviesListContainer.shared.register(MoviesListDataSource.self) { _ in
             MoviesListDataSourceImpl()
         }
     }
 
     private static func registerRepository() {
-        MoviesListContainer.sharedContainer.register(MoviesListRepository.self) { resolver in
+        MoviesListContainer.shared.register(MoviesListRepository.self) { resolver in
             let moviesListDataSource = resolver.resolve(MoviesListDataSource.self)!
             return MoviesListRepositoryImpl(moviesListDataSource: moviesListDataSource)
         }
     }
 
     private static func registerUseCases() {
-        MoviesListContainer.sharedContainer.register(GetNowPlayingMoviesListUseCase.self) { resolver in
+        MoviesListContainer.shared.register(GetNowPlayingMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetNowPlayingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
 
-        MoviesListContainer.sharedContainer.register(GetPopularMoviesListUseCase.self) { resolver in
+        MoviesListContainer.shared.register(GetPopularMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetPopularMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
     }
 
     private static func registerViewModels() {
-        MoviesListContainer.sharedContainer.register(MoviesListViewModel.self) { resolver in
+        MoviesListContainer.shared.register(MoviesListViewModel.self) { resolver in
             let getNowPlayingMoviesListUseCase = resolver.resolve(GetNowPlayingMoviesListUseCase.self)!
             let getPopularMoviesListUseCase = resolver.resolve(GetPopularMoviesListUseCase.self)!
             return MoviesListViewModel(getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: getPopularMoviesListUseCase)

@@ -11,8 +11,8 @@ import UIKitModule
 class LoginViewController: UIViewController {
     // MARK: - Attributes
 
-    private let coordinator = LoginContainer.sharedContainer.resolve(LoginCoordinator.self)
-    private let viewModel = LoginContainer.sharedContainer.resolve(LoginViewModel.self)
+    private let coordinator = LoginContainer.shared.resolve(LoginCoordinator.self)
+    private let viewModel = LoginContainer.shared.resolve(LoginViewModel.self)
 
     private let loginButtonWidth = 120.0
 

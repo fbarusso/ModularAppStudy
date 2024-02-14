@@ -7,21 +7,34 @@
 
 import UIKit
 
+public struct CoordinatorSingletonConfiguration {
+    let coordinator: Coordinator
+    let navigationController: UINavigationController
+
+    public init(coordinator: Coordinator, navigationController: UINavigationController) {
+        self.coordinator = coordinator
+        self.navigationController = navigationController
+    }
+}
+
 public class CoordinatorSingleton {
-    public static let shared = CoordinatorSingleton()
-    public var coordinator: Coordinator?
-    public var navigationController: UINavigationController?
+    private static let shared = CoordinatorSingleton()
+    private var configuration: CoordinatorSingletonConfiguration?
+
+    public static func setup(configuration: CoordinatorSingletonConfiguration) {
+        shared.configuration = configuration
+    }
 
     public static func navigate(viewController: UIViewController, animated: Bool = true) {
-        shared.navigationController?.pushViewController(viewController, animated: animated)
+        shared.configuration?.navigationController.pushViewController(viewController, animated: animated)
     }
 
     public static func navigateToLogin() {
-        shared.coordinator?.navigateToLogin()
+        shared.configuration?.coordinator.navigateToLogin()
     }
 
     public static func navigateToMoviesList() {
-        shared.coordinator?.navigateToMoviesList()
+        shared.configuration?.coordinator.navigateToMoviesList()
     }
 
     private init() {}

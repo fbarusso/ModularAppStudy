@@ -11,8 +11,8 @@ import UIKitModule
 class MoviesListViewController: UIViewController {
     // MARK: - Properties
 
-    private let coordinator = MoviesListContainer.sharedContainer.resolve(MoviesListCoordinator.self)
-    private let viewModel = MoviesListContainer.sharedContainer.resolve(MoviesListViewModel.self)!
+    private let coordinator = MoviesListContainer.shared.resolve(MoviesListCoordinator.self)
+    private let viewModel = MoviesListContainer.shared.resolve(MoviesListViewModel.self)!
     private let collectionViewHeigth = 200.0
     private let collectionViewCellWidthRatio = 0.66
 
