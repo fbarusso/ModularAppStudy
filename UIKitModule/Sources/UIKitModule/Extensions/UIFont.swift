@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension UIFont {
-    public convenience init?(customFont: CustomFont, size: CGFloat) {
+public extension UIFont {
+    convenience init?(customFont: CustomFont, size: CGFloat) {
         self.init(name: customFont.rawValue, size: size)
     }
 }

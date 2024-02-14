@@ -45,7 +45,7 @@ public class Network {
     private func createDefaultHeaders() -> [String: String] {
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": NetworkConstants.apiKey
+            "Authorization": NetworkConstants.apiKey,
         ]
 
         return headers

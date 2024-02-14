@@ -5,8 +5,8 @@
 //  Created by MB Labs on 09/02/24.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 public enum ImageSize: String {
     case original = "original/"
@@ -17,6 +17,6 @@ public extension UIImageView {
     func setImageWithCaching(imagePath: String?, size: ImageSize) {
         guard let imagePath = imagePath else { return }
         let url = URL(string: "https://image.tmdb.org/t/p/\(size.rawValue)\(imagePath)")
-        self.kf.setImage(with: url)
+        kf.setImage(with: url)
     }
 }

@@ -9,14 +9,14 @@ import Foundation
 
 public struct NetworkResponse<T: Decodable>: Decodable {
     public var results: T?
-    
+
     private enum CodingKeys: String, CodingKey {
-        case results = "results"
+        case results
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.results = try container.decodeIfPresent(T.self, forKey: .results)
+
+        results = try container.decodeIfPresent(T.self, forKey: .results)
     }
 }

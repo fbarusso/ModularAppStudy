@@ -1,5 +1,5 @@
-import XCTest
 @testable import NetworkModule
+import XCTest
 
 final class NetworkModuleTests: XCTestCase {
     func testExample() throws {

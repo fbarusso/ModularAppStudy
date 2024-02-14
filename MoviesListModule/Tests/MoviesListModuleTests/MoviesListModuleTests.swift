@@ -1,5 +1,5 @@
-import XCTest
 @testable import MoviesListModule
+import XCTest
 
 final class MoviesListModuleTests: XCTestCase {
     func testExample() throws {

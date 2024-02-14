@@ -14,18 +14,18 @@ protocol MoviesListViewModelDelegate: AnyObject {
 
 class MoviesListViewModel {
     weak var delegate: MoviesListViewModelDelegate?
-    
+
     private let getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase
     private let getPopularMoviesListUseCase: GetPopularMoviesListUseCase
-    
+
     var nowPlayingMoviesList: [MovieEntity] = []
     var popularMoviesList: [MovieEntity] = []
-    
+
     init(getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: GetPopularMoviesListUseCase) {
         self.getNowPlayingMoviesListUseCase = getNowPlayingMoviesListUseCase
         self.getPopularMoviesListUseCase = getPopularMoviesListUseCase
     }
-    
+
     func getNowPlayingMoviesList() {
         getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { nowPlayingMoviesList, _, _ in
             guard let nowPlayingMoviesList = nowPlayingMoviesList else { return }
@@ -33,7 +33,7 @@ class MoviesListViewModel {
             self.delegate?.didGetNowPlayingMoviesList()
         }
     }
-    
+
     func getPopularMoviesList() {
         getPopularMoviesListUseCase.getPopularMoviesListUseCase { popularMoviesList, _, _ in
             guard let popularMoviesList = popularMoviesList else { return }
@@ -42,4 +42,3 @@ class MoviesListViewModel {
         }
     }
 }
-

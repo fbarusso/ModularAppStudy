@@ -1,5 +1,5 @@
-import XCTest
 @testable import UIKitModule
+import XCTest
 
 final class UIKitModuleTests: XCTestCase {
     func testExample() throws {
