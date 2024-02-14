@@ -5,7 +5,6 @@
 //  Created by MB Labs on 02/02/24.
 //
 
-import MoviesListModule
 import UIKit
 import UIKitModule
 

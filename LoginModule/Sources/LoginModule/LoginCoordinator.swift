@@ -6,17 +6,16 @@
 //
 
 import UIKit
-import MoviesListModule
+import CoordinatorModule
 
 class LoginCoordinator {
-    private let navigationController: UINavigationController
+    private let externalCoordinator: ExternalCoordinator
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(externalCoordinator: ExternalCoordinator) {
+        self.externalCoordinator = externalCoordinator
     }
     
     func navigateToMoviesList() {
-        let viewController = MoviesListContainer.createModule()
-        navigationController.pushViewController(viewController, animated: true)
+        externalCoordinator.navigateToMoviesList()
     }
 }

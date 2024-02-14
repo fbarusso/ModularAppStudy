@@ -16,13 +16,10 @@ class AppCoordinator {
         self.navigationController = navigationController
     }
     
-    func navigateToLogin() {
-        let viewController = LoginContainer.createModule(navigationController: navigationController)
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func navigateToMoviesList() {
-        let viewController = MoviesListContainer.createModule()
+    func startNavigation() {
+        let externalCoordinator = ExternalCoordinatorImpl(navigationController: navigationController)
+        
+        let viewController = LoginContainer.createModule(externalCoordinator: externalCoordinator)
         navigationController.pushViewController(viewController, animated: true)
     }
 }

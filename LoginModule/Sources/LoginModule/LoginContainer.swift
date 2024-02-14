@@ -7,11 +7,12 @@
 
 import UIKit
 import Swinject
+import CoordinatorModule
 
 public class LoginContainer {
     static var sharedContainer = Container()
     
-    public static func createModule(navigationController: UINavigationController) -> UIViewController {
+    public static func createModule(externalCoordinator: ExternalCoordinator) -> UIViewController {
         LoginContainer.sharedContainer.register(LoginDataSource.self) { _ in
             LoginDataSourceImpl()
         }
@@ -32,7 +33,7 @@ public class LoginContainer {
         }
         
         LoginContainer.sharedContainer.register(LoginCoordinator.self) { _ in
-            LoginCoordinator(navigationController: navigationController)
+            LoginCoordinator(externalCoordinator: externalCoordinator)
         }
         
         return LoginViewController()

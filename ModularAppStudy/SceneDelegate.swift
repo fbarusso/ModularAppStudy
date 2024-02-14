@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController()
         let appCoordinator = AppCoordinator(navigationController: navigationController)
-        appCoordinator.navigateToLogin()
+        appCoordinator.startNavigation()
         
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigationController
