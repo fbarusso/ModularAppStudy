@@ -11,6 +11,7 @@ import UIKitModule
 class MoviesListViewController: UIViewController {
     // MARK: - Properties
 
+    private let coordinator = MoviesListContainer.sharedContainer.resolve(MoviesListCoordinator.self)
     private let viewModel = MoviesListContainer.sharedContainer.resolve(MoviesListViewModel.self)!
     private let collectionViewHeigth = 200.0
     private let collectionViewCellWidthRatio = 0.66
@@ -136,6 +137,10 @@ extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDa
         let height = collectionView.frame.height
         let width = height * collectionViewCellWidthRatio
         return CGSize(width: width, height: height)
+    }
+
+    func collectionView(_: UICollectionView, didSelectItemAt _: IndexPath) {
+        coordinator?.navigateToMovieDetails()
     }
 }
 

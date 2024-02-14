@@ -5,6 +5,7 @@
 //  Created by MB Labs on 02/02/24.
 //
 
+import CoordinatorModule
 import LoginModule
 import MoviesListModule
 import UIKit
@@ -17,9 +18,9 @@ class AppCoordinator {
     }
 
     func startNavigation() {
-        let externalCoordinator = ExternalCoordinatorImpl(navigationController: navigationController)
-
-        let viewController = LoginContainer.createModule(externalCoordinator: externalCoordinator)
-        navigationController.pushViewController(viewController, animated: true)
+        let coordinatorImpl = CoordinatorImpl(navigationController: navigationController)
+        CoordinatorSingleton.shared.coordinator = coordinatorImpl
+        CoordinatorSingleton.shared.navigationController = navigationController
+        CoordinatorSingleton.shared.coordinator?.navigateToLogin()
     }
 }

@@ -14,7 +14,7 @@
 		344371E92B6D8489002CACB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344371E72B6D8489002CACB2 /* LaunchScreen.storyboard */; };
 		344371F12B6D85D0002CACB2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344371F02B6D85D0002CACB2 /* AppCoordinator.swift */; };
 		34B36C652B76B25200A6ABF1 /* LoginModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34B36C642B76B25200A6ABF1 /* LoginModule */; };
-		34F858EC2B7CFD8D000EA40B /* ExternalCoordinatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F858EB2B7CFD8D000EA40B /* ExternalCoordinatorImpl.swift */; };
+		34F858EC2B7CFD8D000EA40B /* CoordinatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F858EB2B7CFD8D000EA40B /* CoordinatorImpl.swift */; };
 		34F858EE2B7CFDC7000EA40B /* CoordinatorModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34F858ED2B7CFDC7000EA40B /* CoordinatorModule */; };
 		34F858F02B7D0019000EA40B /* MoviesListModule in Frameworks */ = {isa = PBXBuildFile; productRef = 34F858EF2B7D0019000EA40B /* MoviesListModule */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,7 @@
 		3452AFDF2B7285F6008A8322 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = UIKitModule/Package.swift; sourceTree = "<group>"; };
 		3452AFE42B728E04008A8322 /* UIKitModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIKitModule; sourceTree = "<group>"; };
 		34F858EA2B7CFCAC000EA40B /* CoordinatorModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoordinatorModule; sourceTree = "<group>"; };
-		34F858EB2B7CFD8D000EA40B /* ExternalCoordinatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCoordinatorImpl.swift; sourceTree = "<group>"; };
+		34F858EB2B7CFD8D000EA40B /* CoordinatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +79,7 @@
 				344371EA2B6D8489002CACB2 /* Info.plist */,
 				344371F02B6D85D0002CACB2 /* AppCoordinator.swift */,
 				344371DC2B6D8488002CACB2 /* AppDelegate.swift */,
-				34F858EB2B7CFD8D000EA40B /* ExternalCoordinatorImpl.swift */,
+				34F858EB2B7CFD8D000EA40B /* CoordinatorImpl.swift */,
 				344371DE2B6D8488002CACB2 /* SceneDelegate.swift */,
 				344371E52B6D8489002CACB2 /* Assets.xcassets */,
 				344371E72B6D8489002CACB2 /* LaunchScreen.storyboard */,
@@ -173,7 +173,7 @@
 			files = (
 				344371F12B6D85D0002CACB2 /* AppCoordinator.swift in Sources */,
 				344371DD2B6D8488002CACB2 /* AppDelegate.swift in Sources */,
-				34F858EC2B7CFD8D000EA40B /* ExternalCoordinatorImpl.swift in Sources */,
+				34F858EC2B7CFD8D000EA40B /* CoordinatorImpl.swift in Sources */,
 				344371DF2B6D8488002CACB2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

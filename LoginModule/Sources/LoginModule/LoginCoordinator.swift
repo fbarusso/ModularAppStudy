@@ -9,13 +9,7 @@ import CoordinatorModule
 import UIKit
 
 class LoginCoordinator {
-    private let externalCoordinator: ExternalCoordinator
-
-    init(externalCoordinator: ExternalCoordinator) {
-        self.externalCoordinator = externalCoordinator
-    }
-
     func navigateToMoviesList() {
-        externalCoordinator.navigateToMoviesList()
+        CoordinatorSingleton.shared.coordinator?.navigateToMoviesList()
     }
 }

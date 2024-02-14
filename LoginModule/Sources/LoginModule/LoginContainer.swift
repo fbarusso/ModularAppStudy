@@ -12,7 +12,7 @@ import UIKit
 public enum LoginContainer {
     static var sharedContainer = Container()
 
-    public static func createModule(externalCoordinator: ExternalCoordinator) -> UIViewController {
+    public static func createModule() -> UIViewController {
         LoginContainer.sharedContainer.register(LoginDataSource.self) { _ in
             LoginDataSourceImpl()
         }
@@ -33,7 +33,7 @@ public enum LoginContainer {
         }
 
         LoginContainer.sharedContainer.register(LoginCoordinator.self) { _ in
-            LoginCoordinator(externalCoordinator: externalCoordinator)
+            LoginCoordinator()
         }
 
         return LoginViewController()

@@ -56,7 +56,8 @@ class LoginViewController: UIViewController {
         view.backgroundColor = UIColor(customColor: .themeDark)
 
         view.addSubview(titleLabel)
-        titleLabel.center(inView: view)
+        titleLabel.centerX(inView: view)
+        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: VerticalPadding.veryBig)
 
         view.addSubview(loginButton)
         loginButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: VerticalPadding.big, paddingRight: HorizontalPadding.medium)
