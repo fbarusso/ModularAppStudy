@@ -20,6 +20,6 @@ public struct VerticalPadding {
 }
 
 public struct FontSize {
-    public static let medium = 28.0
+    public static let medium = 20.0
     public static let big = 48.0
 }
