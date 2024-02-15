@@ -9,11 +9,10 @@ import CoordinatorModule
 import UIKit
 import UIKitModule
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
     // MARK: - Attributes
 
     private let viewModel = LoginContainer.shared.resolve(LoginViewModel.self)
-
     private let loginButtonWidth = 120.0
 
     // MARK: - Components
@@ -52,9 +51,7 @@ class LoginViewController: UIViewController {
         setupView()
     }
 
-    func setupView() {
-        view.backgroundColor = UIColor(customColor: .themeDark)
-
+    private func setupView() {
         view.addSubview(titleLabel)
         titleLabel.centerX(inView: view)
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: VerticalPadding.veryBig)
@@ -68,12 +65,12 @@ class LoginViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc func userNameDidChange(sender: UITextField) {
+    @objc private func userNameDidChange(sender: UITextField) {
         guard let text = sender.text else { return }
         loginButton.isEnabled = !text.isEmpty
     }
 
-    @objc func didTapLoginButton() {
+    @objc private func didTapLoginButton() {
         viewModel?.saveUserName(userName: userNameTextField.text)
         CoordinatorSingleton.navigateToMoviesList()
     }
