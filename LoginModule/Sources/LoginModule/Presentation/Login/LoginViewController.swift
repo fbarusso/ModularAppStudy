@@ -21,7 +21,7 @@ class LoginViewController: BaseViewController {
         let label = UILabel()
 
         label.text = "ModularMovies"
-        label.font = UIFont(customFont: .pacificoRegular, size: FontSize.big)
+        label.font = UIFont(customFont: .pacificoRegular, size: FontSize.veryBig)
         label.textColor = UIColor(customColor: .accentMagenta)
 
         return label

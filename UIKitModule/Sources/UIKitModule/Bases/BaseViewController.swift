@@ -24,6 +24,18 @@ open class BaseViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBar()
+        configureView()
+    }
+
+    // MARK: - Default configuration
+
+    open func configureNavigationBar() {
+        navigationController?.navigationBar.tintColor = UIColor(customColor: .themeDark)
+        navigationController?.navigationBar.tintColor = UIColor(customColor: .themeLight)
+    }
+
+    open func configureView() {
         view.backgroundColor = UIColor(customColor: .themeDark)
     }
 }

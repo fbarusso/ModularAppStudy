@@ -8,7 +8,7 @@
 import UIKit
 import UIKitModule
 
-class MovieDetailsViewController: BaseViewController {
+class MovieDetailsViewController: BaseScrollableViewController {
     // MARK: - Properties
 
     private let movieEntity: MovieEntity
@@ -37,6 +37,11 @@ class MovieDetailsViewController: BaseViewController {
         return label
     }()
 
+    private let originalTitleLabel = UILabel()
+    private let releaseDateLabel = UILabel()
+    private let voteAverageLabel = UILabel()
+    private let voteCountLabel = UILabel()
+
     // MARK: - Init
 
     init(movieEntity: MovieEntity) {
@@ -55,16 +60,34 @@ class MovieDetailsViewController: BaseViewController {
     // MARK: - Helpers
 
     private func setupView() {
-        view.addSubview(imageView)
-        imageView.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: view.frame.width * imageViewHeightRaio)
+        addSubviewToScrollableContentView(imageView)
+        imageView.anchor(top: scrollableViewTopAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, height: view.frame.width * imageViewHeightRaio)
         imageView.setImageWithCaching(imagePath: movieEntity.posterPath, size: .original)
 
-        view.addSubview(titleLabel)
-        titleLabel.anchor(top: imageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        addSubviewToScrollableContentView(titleLabel)
+        titleLabel.anchor(top: imageView.bottomAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
         titleLabel.text = movieEntity.title
 
-        view.addSubview(overviewLabel)
-        overviewLabel.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.small, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        addSubviewToScrollableContentView(overviewLabel)
+        overviewLabel.anchor(top: titleLabel.bottomAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, paddingTop: VerticalPadding.small, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
         overviewLabel.text = movieEntity.overview
+
+        let movieDetailsStackView = UIStackView(arrangedSubviews: [originalTitleLabel, releaseDateLabel, voteAverageLabel, voteCountLabel])
+        movieDetailsStackView.axis = .vertical
+
+        addSubviewToScrollableContentView(movieDetailsStackView)
+
+        movieDetailsStackView.anchor(top: overviewLabel.bottomAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+
+        movieDetailsStackView.anchorToScrollableContentViewBottom(padding: VerticalPadding.medium)
+
+        setupMovieDetails()
+    }
+
+    private func setupMovieDetails() {
+        originalTitleLabel.setHalfBold(boldString: "Titulo original: ", regularString: movieEntity.originalTitle)
+        releaseDateLabel.setHalfBold(boldString: "Data de lançamento: ", regularString: movieEntity.releaseDate)
+        voteAverageLabel.setHalfBold(boldString: "Avaliação média: ", regularString: String(movieEntity.voteAverage))
+        voteCountLabel.setHalfBold(boldString: "Número de avaliações: ", regularString: String(movieEntity.voteCount))
     }
 }
