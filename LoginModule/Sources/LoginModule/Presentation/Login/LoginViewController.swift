@@ -5,13 +5,13 @@
 //  Created by MB Labs on 02/02/24.
 //
 
+import CoordinatorModule
 import UIKit
 import UIKitModule
 
 class LoginViewController: UIViewController {
     // MARK: - Attributes
 
-    private let coordinator = LoginContainer.shared.resolve(LoginCoordinator.self)
     private let viewModel = LoginContainer.shared.resolve(LoginViewModel.self)
 
     private let loginButtonWidth = 120.0
@@ -75,6 +75,6 @@ class LoginViewController: UIViewController {
 
     @objc func didTapLoginButton() {
         viewModel?.saveUserName(userName: userNameTextField.text)
-        coordinator?.navigateToMoviesList()
+        CoordinatorSingleton.navigateToMoviesList()
     }
 }

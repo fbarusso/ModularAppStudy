@@ -32,10 +32,6 @@ public enum LoginContainer {
             return LoginViewModel(saveUserNameUseCase: saveUserNameUseCase)
         }
 
-        LoginContainer.shared.register(LoginCoordinator.self) { _ in
-            LoginCoordinator()
-        }
-
         return LoginViewController()
     }
 }

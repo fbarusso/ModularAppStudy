@@ -12,18 +12,11 @@ public enum MoviesListContainer {
     static var shared = Container()
 
     public static func createModule() -> UIViewController {
-        registerCoordinator()
         registerDataSource()
         registerRepository()
         registerUseCases()
         registerViewModels()
         return MoviesListViewController()
-    }
-
-    private static func registerCoordinator() {
-        MoviesListContainer.shared.register(MoviesListCoordinator.self) { _ in
-            MoviesListCoordinator()
-        }
     }
 
     private static func registerDataSource() {

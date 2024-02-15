@@ -6,8 +6,6 @@
 //
 
 import CoordinatorModule
-import LoginModule
-import MoviesListModule
 import UIKit
 
 class AppCoordinator {

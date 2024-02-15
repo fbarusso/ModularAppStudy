@@ -5,15 +5,15 @@
 //  Created by MB Labs on 06/02/24.
 //
 
+import CoordinatorModule
 import UIKit
 import UIKitModule
 
 class MoviesListViewController: UIViewController {
     // MARK: - Properties
 
-    private let coordinator = MoviesListContainer.shared.resolve(MoviesListCoordinator.self)
     private let viewModel = MoviesListContainer.shared.resolve(MoviesListViewModel.self)!
-    private let collectionViewHeigth = 200.0
+    private let collectionViewHeight = 200.0
     private let collectionViewCellWidthRatio = 0.66
 
     // MARK: - Components
@@ -77,7 +77,7 @@ class MoviesListViewController: UIViewController {
         nowPlayingMoviesListCollectionView.backgroundColor = .clear
 
         view.addSubview(nowPlayingMoviesListCollectionView)
-        nowPlayingMoviesListCollectionView.anchor(top: nowPlayingLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeigth)
+        nowPlayingMoviesListCollectionView.anchor(top: nowPlayingLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeight)
 
         nowPlayingMoviesListCollectionView.delegate = self
         nowPlayingMoviesListCollectionView.dataSource = self
@@ -102,7 +102,7 @@ class MoviesListViewController: UIViewController {
         popularMoviesListCollectionView.backgroundColor = .clear
 
         view.addSubview(popularMoviesListCollectionView)
-        popularMoviesListCollectionView.anchor(top: popularLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeigth)
+        popularMoviesListCollectionView.anchor(top: popularLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeight)
 
         popularMoviesListCollectionView.delegate = self
         popularMoviesListCollectionView.dataSource = self
@@ -140,7 +140,7 @@ extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDa
     }
 
     func collectionView(_: UICollectionView, didSelectItemAt _: IndexPath) {
-        coordinator?.navigateToMovieDetails()
+        CoordinatorSingleton.navigate(viewController: MovieDetailsViewController())
     }
 }
 
