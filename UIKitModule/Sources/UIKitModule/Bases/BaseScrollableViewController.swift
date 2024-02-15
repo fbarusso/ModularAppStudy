@@ -50,17 +50,22 @@ open class BaseScrollableViewController: BaseViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollableContentView)
 
-        let heightConstraint = scrollableContentView.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor)
+        let heightConstraint = scrollableContentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         heightConstraint.isActive = true
-        heightConstraint.priority = .defaultLow
+        heightConstraint.priority = UILayoutPriority(50)
 
         scrollView.fillSuperview()
         scrollableContentView.fillSuperview()
 
-        scrollableContentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
+        scrollableContentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
 
     public func addSubviewToScrollableContentView(_ view: UIView) {
         scrollableContentView.addSubview(view)
+    }
+
+    public func anchorToScrollableContentViewBottom(view: UIView, padding: CGFloat = 0) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.bottomAnchor.constraint(equalTo: scrollableContentView.bottomAnchor, constant: -padding).isActive = true
     }
 }

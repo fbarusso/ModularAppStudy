@@ -94,12 +94,6 @@ public extension UIView {
         anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: padding, paddingLeft: padding, paddingBottom: padding, paddingRight: padding)
     }
 
-    func anchorToScrollableContentViewBottom(padding: CGFloat = 0) {
-        translatesAutoresizingMaskIntoConstraints = false
-        guard let scrollableContentView = superview else { return }
-        bottomAnchor.constraint(greaterThanOrEqualTo: scrollableContentView.bottomAnchor, constant: padding).isActive = true
-    }
-
     func setCircular() {
         layer.cornerRadius = layer.bounds.width / 2
         clipsToBounds = true

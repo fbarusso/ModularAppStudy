@@ -31,7 +31,7 @@ open class BaseViewController: UIViewController {
     // MARK: - Default configuration
 
     open func configureNavigationBar() {
-        navigationController?.navigationBar.tintColor = UIColor(customColor: .themeDark)
+        navigationController?.navigationBar.barTintColor = UIColor(customColor: .themeDark)
         navigationController?.navigationBar.tintColor = UIColor(customColor: .themeLight)
     }
 
