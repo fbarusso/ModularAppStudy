@@ -18,6 +18,25 @@ class MovieDetailsViewController: BaseViewController {
 
     private let imageView = UIImageView()
 
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+
+        label.font = .systemFont(ofSize: FontSize.big, weight: .bold)
+        label.textColor = UIColor(customColor: .themeLight)
+
+        return label
+    }()
+
+    private let overviewLabel: UILabel = {
+        let label = UILabel()
+
+        label.font = .systemFont(ofSize: FontSize.medium)
+        label.textColor = UIColor(customColor: .themeLight)
+        label.numberOfLines = 0
+
+        return label
+    }()
+
     // MARK: - Init
 
     init(movieEntity: MovieEntity) {
@@ -39,5 +58,13 @@ class MovieDetailsViewController: BaseViewController {
         view.addSubview(imageView)
         imageView.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: view.frame.width * imageViewHeightRaio)
         imageView.setImageWithCaching(imagePath: movieEntity.posterPath, size: .original)
+
+        view.addSubview(titleLabel)
+        titleLabel.anchor(top: imageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        titleLabel.text = movieEntity.title
+
+        view.addSubview(overviewLabel)
+        overviewLabel.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.small, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        overviewLabel.text = movieEntity.overview
     }
 }

@@ -8,12 +8,12 @@
 import Foundation
 
 class MovieEntity: Decodable {
-    let originalTitle: String
+    let title: String
     let overview: String
     let posterPath: String
 
     enum CodingKeys: String, CodingKey {
-        case originalTitle = "original_title"
+        case title
         case overview
         case posterPath = "poster_path"
     }
@@ -21,7 +21,7 @@ class MovieEntity: Decodable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        originalTitle = try container.decode(String.self, forKey: .originalTitle)
+        title = try container.decode(String.self, forKey: .title)
         overview = try container.decode(String.self, forKey: .overview)
         posterPath = try container.decode(String.self, forKey: .posterPath)
     }
