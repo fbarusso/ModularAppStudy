@@ -36,10 +36,9 @@ class LoginViewController: BaseViewController {
     }()
 
     private lazy var loginButton: CustomButton = {
-        let customButton = CustomButton(title: "Entrar", width: loginButtonWidth)
+        let customButton = CustomButton(title: "Entrar", width: loginButtonWidth, isEnabled: false)
 
         customButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
-        customButton.isEnabled = false
 
         return customButton
     }()
@@ -71,7 +70,8 @@ class LoginViewController: BaseViewController {
     }
 
     @objc private func didTapLoginButton() {
-        viewModel?.saveUserName(userName: userNameTextField.text)
-        CoordinatorSingleton.navigateToMoviesList()
+//        viewModel?.saveUserName(userName: userNameTextField.text)
+//        CoordinatorSingleton.navigateToMoviesList()
+        showMessage(title: "Lorem ipsum", message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
     }
 }

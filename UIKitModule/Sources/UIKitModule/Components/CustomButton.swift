@@ -20,7 +20,8 @@ public class CustomButton: UIButton {
                             width: CGFloat? = nil,
                             titleColor: UIColor? = .white,
                             backgroundColor: UIColor? = UIColor(customColor: .accentMagenta),
-                            cornerRadius: CGFloat = 16.0)
+                            cornerRadius: CGFloat = 16.0,
+                            isEnabled: Bool = true)
     {
         self.init(type: type)
 
@@ -36,6 +37,8 @@ public class CustomButton: UIButton {
         self.backgroundColor = backgroundColor
 
         layer.cornerRadius = cornerRadius
+
+        self.isEnabled = isEnabled
     }
 
     private func didSetIsEnabled() {

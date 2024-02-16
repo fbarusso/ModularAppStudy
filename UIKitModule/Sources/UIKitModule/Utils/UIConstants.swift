@@ -20,7 +20,13 @@ public enum VerticalPadding {
 }
 
 public enum FontSize {
+    public static let small = 12.0
     public static let medium = 16.0
     public static let big = 32.0
     public static let veryBig = 48.0
+}
+
+public enum CornerRadius {
+    public static let small = 8.0
+    public static let medium = 16.0
 }

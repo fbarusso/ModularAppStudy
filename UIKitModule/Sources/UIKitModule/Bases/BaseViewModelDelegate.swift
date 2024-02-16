@@ -8,5 +8,5 @@
 import UIKit
 
 protocol BaseViewModelDelegate where Self: UIViewController {
-    func showMessage(message: String)
+    func showMessage(title: String, message: String)
 }

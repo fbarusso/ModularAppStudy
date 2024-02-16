@@ -8,6 +8,10 @@
 import UIKit
 
 open class BaseViewController: UIViewController {
+    // MARK: - Components
+
+    private let customAlert = CustomAlert()
+
     // MARK: - Init
 
     public init() {
@@ -38,12 +42,16 @@ open class BaseViewController: UIViewController {
     open func configureView() {
         view.backgroundColor = UIColor(customColor: .themeDark)
     }
+
+    @objc func dismissAlert() {
+        customAlert.dismissAlert()
+    }
 }
 
 // MARK: - BaseViewModelDelegate
 
 extension BaseViewController: BaseViewModelDelegate {
-    public func showMessage(message _: String) {
-        // TODO: Implement custom alert
+    public func showMessage(title: String, message: String) {
+        customAlert.showAlert(title: title, message: message, on: self)
     }
 }
