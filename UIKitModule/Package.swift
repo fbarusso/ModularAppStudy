@@ -17,13 +17,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.0.0")),
+        .package(url: "https://github.com/Juanpe/SkeletonView.git", .upToNextMajor(from: "1.30.4")),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "UIKitModule",
-            dependencies: ["Kingfisher"],
+            dependencies: ["Kingfisher", "SkeletonView"],
             resources: [.process("Assets/Fonts")]
         ),
         .testTarget(

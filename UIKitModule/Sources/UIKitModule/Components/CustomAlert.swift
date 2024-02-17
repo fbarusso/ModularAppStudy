@@ -86,15 +86,16 @@ class CustomAlert {
         alertView.setWidth(view.frame.width * Configuration.alertWidthRatio)
 
         alertView.addSubview(titleLabel)
-        titleLabel.centerX(inView: alertView, topAnchor: alertView.topAnchor, paddingTop: VerticalPadding.medium)
+        titleLabel.anchorToViewTop(view: alertView)
         titleLabel.text = title
 
         alertView.addSubview(messageLabel)
-        messageLabel.anchor(top: titleLabel.bottomAnchor, left: alertView.leftAnchor, right: alertView.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        messageLabel.anchorBelow(view: titleLabel)
         messageLabel.text = message
 
         alertView.addSubview(dismissButton)
-        dismissButton.anchor(top: messageLabel.bottomAnchor, left: alertView.leftAnchor, bottom: alertView.bottomAnchor, right: alertView.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingBottom: VerticalPadding.medium, paddingRight: HorizontalPadding.small)
+        dismissButton.anchorBelow(view: messageLabel)
+        dismissButton.anchorToSuperviewBottomOnly(paddingBottom: .medium)
     }
 
     // MARK: - Actions

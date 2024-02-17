@@ -61,15 +61,17 @@ class MovieDetailsViewController: BaseScrollableViewController {
 
     private func setupView() {
         addSubviewToScrollableContentView(imageView)
-        imageView.anchor(top: scrollableViewTopAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, height: view.frame.width * imageViewHeightRaio)
+
+        imageView.anchorToViewTop(view: scrollableContentView, paddingTop: .none, horizontalPadding: .none)
+        imageView.setHeight(view.frame.width * imageViewHeightRaio)
         imageView.setImageWithCaching(imagePath: movieEntity.posterPath, size: .original)
 
         addSubviewToScrollableContentView(titleLabel)
-        titleLabel.anchor(top: imageView.bottomAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        titleLabel.anchorBelow(view: imageView)
         titleLabel.text = movieEntity.title
 
         addSubviewToScrollableContentView(overviewLabel)
-        overviewLabel.anchor(top: titleLabel.bottomAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, paddingTop: VerticalPadding.small, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        overviewLabel.anchorBelow(view: titleLabel)
         overviewLabel.text = movieEntity.overview
 
         let movieDetailsStackView = UIStackView(arrangedSubviews: [originalTitleLabel, releaseDateLabel, voteAverageLabel, voteCountLabel])
@@ -77,9 +79,9 @@ class MovieDetailsViewController: BaseScrollableViewController {
 
         addSubviewToScrollableContentView(movieDetailsStackView)
 
-        movieDetailsStackView.anchor(top: overviewLabel.bottomAnchor, left: scrollableViewLeftAnchor, right: scrollableViewRightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        movieDetailsStackView.anchorBelow(view: overviewLabel)
 
-        anchorToScrollableContentViewBottom(view: movieDetailsStackView, padding: VerticalPadding.big)
+        anchorToScrollableContentViewBottom(view: movieDetailsStackView, paddingBottom: .big)
 
         setupMovieDetails()
     }

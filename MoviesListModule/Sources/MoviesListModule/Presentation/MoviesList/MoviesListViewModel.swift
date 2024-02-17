@@ -6,10 +6,10 @@
 //
 
 import Foundation
+import UIKitModule
 
-protocol MoviesListViewModelDelegate: AnyObject {
-    func didGetNowPlayingMoviesList()
-    func didGetPopularMoviesList()
+protocol MoviesListViewModelDelegate: BaseViewModelDelegate {
+    func didGetInitialData()
 }
 
 class MoviesListViewModel {
@@ -26,19 +26,50 @@ class MoviesListViewModel {
         self.getPopularMoviesListUseCase = getPopularMoviesListUseCase
     }
 
-    func getNowPlayingMoviesList() {
-        getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { nowPlayingMoviesList, _, _ in
-            guard let nowPlayingMoviesList else { return }
-            self.nowPlayingMoviesList = nowPlayingMoviesList
-            self.delegate?.didGetNowPlayingMoviesList()
+    func getInitialData() {
+        delegate?.setIsLoading(true)
+        let dispatchGroup = DispatchGroup()
+        getNowPlayingMoviesList(dispatchGroup: dispatchGroup)
+        getPopularMoviesList(dispatchGroup: dispatchGroup)
+        dispatchGroup.notify(queue: .main) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.delegate?.didGetInitialData()
+                self.delegate?.setIsLoading(false)
+            }
         }
     }
 
-    func getPopularMoviesList() {
-        getPopularMoviesListUseCase.getPopularMoviesListUseCase { popularMoviesList, _, _ in
-            guard let popularMoviesList else { return }
-            self.popularMoviesList = popularMoviesList
-            self.delegate?.didGetPopularMoviesList()
+    private func getNowPlayingMoviesList(dispatchGroup: DispatchGroup) {
+        dispatchGroup.enter()
+        getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { nowPlayingMoviesList, success, error in
+            switch success {
+            case true:
+                guard let nowPlayingMoviesList else { return }
+                self.nowPlayingMoviesList = nowPlayingMoviesList
+            case false:
+                if let error {
+                    self.delegate?.showMessage(title: "Erro", message: error)
+                }
+                self.delegate?.showMessage(title: "Erro", message: "Ocorreu um erro.")
+            }
+            dispatchGroup.leave()
+        }
+    }
+
+    private func getPopularMoviesList(dispatchGroup: DispatchGroup) {
+        dispatchGroup.enter()
+        getPopularMoviesListUseCase.getPopularMoviesListUseCase { popularMoviesList, success, error in
+            switch success {
+            case true:
+                guard let popularMoviesList else { return }
+                self.popularMoviesList = popularMoviesList
+            case false:
+                if let error {
+                    self.delegate?.showMessage(title: "Erro", message: error)
+                }
+                self.delegate?.showMessage(title: "Erro", message: "Ocorreu um erro.")
+            }
+            dispatchGroup.leave()
         }
     }
 }

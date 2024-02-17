@@ -13,7 +13,6 @@ class LoginViewController: BaseViewController {
     // MARK: - Attributes
 
     private let viewModel = LoginContainer.shared.resolve(LoginViewModel.self)
-    private let loginButtonWidth = 120.0
 
     // MARK: - Components
 
@@ -23,6 +22,7 @@ class LoginViewController: BaseViewController {
         label.text = "ModularMovies"
         label.font = UIFont(customFont: .pacificoRegular, size: FontSize.veryBig)
         label.textColor = UIColor(customColor: .accentMagenta)
+        label.textAlignment = .center
 
         return label
     }()
@@ -36,7 +36,7 @@ class LoginViewController: BaseViewController {
     }()
 
     private lazy var loginButton: CustomButton = {
-        let customButton = CustomButton(title: "Entrar", width: loginButtonWidth, isEnabled: false)
+        let customButton = CustomButton(title: "Entrar", isEnabled: false)
 
         customButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
 
@@ -52,14 +52,13 @@ class LoginViewController: BaseViewController {
 
     private func setupView() {
         view.addSubview(titleLabel)
-        titleLabel.centerX(inView: view)
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: VerticalPadding.veryBig)
+        titleLabel.anchorToViewTop(view: view, paddingTop: .veryBig, horizontalPadding: .none)
 
         view.addSubview(loginButton)
-        loginButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: VerticalPadding.big, paddingRight: HorizontalPadding.medium)
+        loginButton.anchorToViewBottom(view: view, paddingBottom: .big, horizontalPadding: .medium)
 
         view.addSubview(userNameTextField)
-        userNameTextField.anchor(left: view.leftAnchor, bottom: loginButton.topAnchor, right: view.rightAnchor, paddingLeft: HorizontalPadding.medium, paddingBottom: VerticalPadding.big, paddingRight: HorizontalPadding.medium)
+        userNameTextField.anchorAbove(view: loginButton, horizontalPadding: .medium)
     }
 
     // MARK: - Actions
@@ -70,8 +69,7 @@ class LoginViewController: BaseViewController {
     }
 
     @objc private func didTapLoginButton() {
-//        viewModel?.saveUserName(userName: userNameTextField.text)
-//        CoordinatorSingleton.navigateToMoviesList()
-        showMessage(title: "Lorem ipsum", message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+        viewModel?.saveUserName(userName: userNameTextField.text)
+        CoordinatorSingleton.navigateToMoviesList()
     }
 }

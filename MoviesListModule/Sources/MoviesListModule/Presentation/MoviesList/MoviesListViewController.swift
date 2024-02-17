@@ -6,6 +6,7 @@
 //
 
 import CoordinatorModule
+import SkeletonView
 import UIKit
 import UIKitModule
 
@@ -18,28 +19,9 @@ class MoviesListViewController: BaseViewController {
 
     // MARK: - Components
 
-    private var nowPlayingLabel: UILabel = {
-        let label = UILabel()
-
-        label.text = "Em cartaz"
-        label.font = .systemFont(ofSize: FontSize.big, weight: .bold)
-        label.textColor = UIColor(customColor: .themeLight)
-
-        return label
-    }()
-
+    private let nowPlayingLabel = CustomLabel(text: "Em cartaz", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
     private let nowPlayingMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
-
-    private var popularLabel: UILabel = {
-        let label = UILabel()
-
-        label.text = "Populares"
-        label.font = .systemFont(ofSize: FontSize.big, weight: .bold)
-        label.textColor = UIColor(customColor: .themeLight)
-
-        return label
-    }()
-
+    private var popularLabel = CustomLabel(text: "Populares", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
     private let popularMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
 
     // MARK: - Lifecycle
@@ -49,50 +31,75 @@ class MoviesListViewController: BaseViewController {
 
         setupView()
         viewModel.delegate = self
-        viewModel.getNowPlayingMoviesList()
-        viewModel.getPopularMoviesList()
+        viewModel.getInitialData()
     }
 
     // MARK: - Helpers
 
     private func setupView() {
         view.addSubview(nowPlayingLabel)
-        nowPlayingLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
+        nowPlayingLabel.anchorToViewTop(view: view)
 
         view.addSubview(nowPlayingMoviesListCollectionView)
-        nowPlayingMoviesListCollectionView.anchor(top: nowPlayingLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeight)
+        nowPlayingMoviesListCollectionView.anchorBelow(view: nowPlayingLabel, horizontalPadding: .none)
+        nowPlayingMoviesListCollectionView.setHeight(collectionViewHeight)
 
+        view.addSubview(popularLabel)
+        popularLabel.anchorBelow(view: nowPlayingMoviesListCollectionView)
+
+        view.addSubview(popularMoviesListCollectionView)
+        popularMoviesListCollectionView.anchorBelow(view: popularLabel, horizontalPadding: .none)
+        popularMoviesListCollectionView.setHeight(collectionViewHeight)
+
+        setupCollectionViews()
+    }
+
+    private func setupCollectionViews() {
         nowPlayingMoviesListCollectionView.delegate = self
         nowPlayingMoviesListCollectionView.dataSource = self
         nowPlayingMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier)
-
-        view.addSubview(popularLabel)
-        popularLabel.anchor(top: nowPlayingMoviesListCollectionView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, paddingLeft: HorizontalPadding.small, paddingRight: HorizontalPadding.small)
-
-        view.addSubview(popularMoviesListCollectionView)
-        popularMoviesListCollectionView.anchor(top: popularLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: VerticalPadding.medium, height: collectionViewHeight)
 
         popularMoviesListCollectionView.delegate = self
         popularMoviesListCollectionView.dataSource = self
         popularMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.popularMoviesListReuseIdentifier)
     }
+
+    override func didSetIsLoading(isLoading: Bool) {
+        let views = [nowPlayingLabel, nowPlayingMoviesListCollectionView, popularLabel, popularMoviesListCollectionView]
+        isLoading ? showSkeleton(in: views) : hideSkeleton(in: views)
+    }
 }
 
-// MARK: - UICollectionView protocols
+// MARK: - SkeletonCollectionViewDataSource
 
-extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MoviesListViewController: SkeletonCollectionViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt _: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        switch skeletonView {
+        case nowPlayingMoviesListCollectionView:
+            MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier
+        default:
+            MoviesListCollectionViewCell.popularMoviesListReuseIdentifier
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        collectionView == nowPlayingMoviesListCollectionView ? viewModel.nowPlayingMoviesList.count : viewModel.popularMoviesList.count
+        switch collectionView {
+        case nowPlayingMoviesListCollectionView:
+            viewModel.nowPlayingMoviesList.count
+        default:
+            viewModel.popularMoviesList.count
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == nowPlayingMoviesListCollectionView {
+        switch collectionView {
+        case nowPlayingMoviesListCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
 
             cell.setup(movieEntity: viewModel.nowPlayingMoviesList[indexPath.row])
 
             return cell
-        } else {
+        default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.popularMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
 
             cell.setup(movieEntity: viewModel.popularMoviesList[indexPath.row])
@@ -100,13 +107,21 @@ extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDa
             return cell
         }
     }
+}
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let height = collectionView.frame.height
         let width = height * collectionViewCellWidthRatio
         return CGSize(width: width, height: height)
     }
+}
 
+// MARK: - UICollectionViewDelegate
+
+extension MoviesListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movieEntity = collectionView == nowPlayingMoviesListCollectionView ? viewModel.nowPlayingMoviesList[indexPath.row] : viewModel.popularMoviesList[indexPath.row]
         CoordinatorSingleton.navigate(viewController: MovieDetailsViewController(movieEntity: movieEntity))
@@ -116,11 +131,8 @@ extension MoviesListViewController: UICollectionViewDelegate, UICollectionViewDa
 // MARK: - ViewModel delegate
 
 extension MoviesListViewController: MoviesListViewModelDelegate {
-    func didGetNowPlayingMoviesList() {
+    func didGetInitialData() {
         nowPlayingMoviesListCollectionView.reloadData()
-    }
-
-    func didGetPopularMoviesList() {
         popularMoviesListCollectionView.reloadData()
     }
 }

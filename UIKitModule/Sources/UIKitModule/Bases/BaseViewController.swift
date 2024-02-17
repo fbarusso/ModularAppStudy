@@ -8,6 +8,14 @@
 import UIKit
 
 open class BaseViewController: UIViewController {
+    // MARK: - Attributes
+
+    private var isLoading: Bool = false {
+        didSet {
+            didSetIsLoading(isLoading: isLoading)
+        }
+    }
+
     // MARK: - Components
 
     private let customAlert = CustomAlert()
@@ -43,6 +51,9 @@ open class BaseViewController: UIViewController {
         view.backgroundColor = UIColor(customColor: .themeDark)
     }
 
+    /// Override this function to setup the loading state of a view
+    open func didSetIsLoading(isLoading _: Bool) {}
+
     @objc func dismissAlert() {
         customAlert.dismissAlert()
     }
@@ -53,5 +64,9 @@ open class BaseViewController: UIViewController {
 extension BaseViewController: BaseViewModelDelegate {
     public func showMessage(title: String, message: String) {
         customAlert.showAlert(title: title, message: message, on: self)
+    }
+
+    public func setIsLoading(_ isLoading: Bool) {
+        self.isLoading = isLoading
     }
 }

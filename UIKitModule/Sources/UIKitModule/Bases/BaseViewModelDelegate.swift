@@ -7,6 +7,7 @@
 
 import UIKit
 
-protocol BaseViewModelDelegate where Self: UIViewController {
+public protocol BaseViewModelDelegate where Self: UIViewController {
     func showMessage(title: String, message: String)
+    func setIsLoading(_ isLoading: Bool)
 }

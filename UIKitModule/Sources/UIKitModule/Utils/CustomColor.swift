@@ -12,4 +12,5 @@ public enum CustomColor: String {
     case themeLight = "#EAEAEA"
     case accentMagenta = "#FF2E63"
     case accentCyan = "#08D9D6"
+    case skeletonGradient = "#363D4C"
 }

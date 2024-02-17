@@ -5,6 +5,7 @@
 //  Created by MB Labs on 06/02/24.
 //
 
+import SkeletonView
 import UIKit
 
 public extension UIView {
@@ -46,10 +47,57 @@ public extension UIView {
         }
     }
 
-    func center(inView view: UIView, yConstant: CGFloat? = 0) {
+    func anchorToViewTop(view: UIView, paddingTop: VerticalPadding = .medium, horizontalPadding: HorizontalPadding = .small) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: paddingTop.rawValue),
+            leftAnchor.constraint(equalTo: view.leftAnchor, constant: horizontalPadding.rawValue),
+            rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horizontalPadding.rawValue),
+        ])
+    }
+
+    func anchorToViewBottom(view: UIView, paddingBottom: VerticalPadding = .medium, horizontalPadding: HorizontalPadding = .small) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -paddingBottom.rawValue),
+            leftAnchor.constraint(equalTo: view.leftAnchor, constant: horizontalPadding.rawValue),
+            rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horizontalPadding.rawValue),
+        ])
+    }
+
+    func anchorBelow(view: UIView, paddingTop: VerticalPadding = .medium, horizontalPadding: HorizontalPadding = .small) {
+        guard let superview else { return }
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: view.bottomAnchor, constant: paddingTop.rawValue),
+            leftAnchor.constraint(equalTo: superview.leftAnchor, constant: horizontalPadding.rawValue),
+            rightAnchor.constraint(equalTo: superview.rightAnchor, constant: -horizontalPadding.rawValue),
+        ])
+    }
+
+    func anchorAbove(view: UIView, paddingBottom: VerticalPadding = .medium, horizontalPadding: HorizontalPadding = .small) {
+        guard let superview else { return }
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bottomAnchor.constraint(equalTo: view.topAnchor, constant: -paddingBottom.rawValue),
+            leftAnchor.constraint(equalTo: superview.leftAnchor, constant: horizontalPadding.rawValue),
+            rightAnchor.constraint(equalTo: superview.rightAnchor, constant: -horizontalPadding.rawValue),
+        ])
+    }
+
+    func anchorToSuperviewBottomOnly(paddingBottom: VerticalPadding = .big) {
+        guard let superview else { return }
+
+        translatesAutoresizingMaskIntoConstraints = false
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -paddingBottom.rawValue).isActive = true
+    }
+
+    func center(inView view: UIView, yConstant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: yConstant!).isActive = true
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: yConstant).isActive = true
     }
 
     func centerX(inView view: UIView, topAnchor: NSLayoutYAxisAnchor? = nil, paddingTop: CGFloat? = 0) {
@@ -90,8 +138,8 @@ public extension UIView {
 
     func fillSuperview(padding: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
-        guard let view = superview else { return }
-        anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: padding, paddingLeft: padding, paddingBottom: padding, paddingRight: padding)
+        guard let superview else { return }
+        anchor(top: superview.topAnchor, left: superview.leftAnchor, bottom: superview.bottomAnchor, right: superview.rightAnchor, paddingTop: padding, paddingLeft: padding, paddingBottom: padding, paddingRight: padding)
     }
 
     func setCircular() {

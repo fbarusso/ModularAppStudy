@@ -19,6 +19,7 @@ public class CustomButton: UIButton {
                             height: CGFloat = 42.0,
                             width: CGFloat? = nil,
                             titleColor: UIColor? = .white,
+                            titleFont: UIFont = .systemFont(ofSize: FontSize.medium, weight: .bold),
                             backgroundColor: UIColor? = UIColor(customColor: .accentMagenta),
                             cornerRadius: CGFloat = 16.0,
                             isEnabled: Bool = true)
@@ -33,6 +34,7 @@ public class CustomButton: UIButton {
 
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
+        titleLabel?.font = titleFont
 
         self.backgroundColor = backgroundColor
 

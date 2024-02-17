@@ -5,6 +5,7 @@
 //  Created by MB Labs on 09/02/24.
 //
 
+import SkeletonView
 import UIKit
 
 class MoviesListCollectionViewCell: UICollectionViewCell {
@@ -15,7 +16,12 @@ class MoviesListCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(imageView)
+
+        isSkeletonable = true
+        contentView.isSkeletonable = true
+
+        contentView.addSubview(imageView)
+        imageView.isSkeletonable = true
         imageView.fillSuperview()
     }
 

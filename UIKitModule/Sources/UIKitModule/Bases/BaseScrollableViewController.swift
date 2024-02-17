@@ -18,23 +18,7 @@ open class BaseScrollableViewController: BaseViewController {
         return scrollView
     }()
 
-    private let scrollableContentView = UIView()
-
-    public var scrollableViewTopAnchor: NSLayoutYAxisAnchor {
-        scrollableContentView.topAnchor
-    }
-
-    public var scrollableViewLeftAnchor: NSLayoutXAxisAnchor {
-        scrollableContentView.leftAnchor
-    }
-
-    public var scrollableViewBottomAnchor: NSLayoutYAxisAnchor {
-        scrollableContentView.bottomAnchor
-    }
-
-    public var scrollableViewRightAnchor: NSLayoutXAxisAnchor {
-        scrollableContentView.rightAnchor
-    }
+    public let scrollableContentView = UIView()
 
     // MARK: - Lifecycle
 
@@ -64,8 +48,8 @@ open class BaseScrollableViewController: BaseViewController {
         scrollableContentView.addSubview(view)
     }
 
-    public func anchorToScrollableContentViewBottom(view: UIView, padding: CGFloat = 0) {
+    public func anchorToScrollableContentViewBottom(view: UIView, paddingBottom: VerticalPadding = .big) {
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.bottomAnchor.constraint(equalTo: scrollableContentView.bottomAnchor, constant: -padding).isActive = true
+        view.bottomAnchor.constraint(equalTo: scrollableContentView.bottomAnchor, constant: -paddingBottom.rawValue).isActive = true
     }
 }
