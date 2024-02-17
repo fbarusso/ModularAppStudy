@@ -37,6 +37,7 @@ class MoviesListViewController: BaseViewController {
     // MARK: - Helpers
 
     private func setupView() {
+        view.isSkeletonable = true
         view.addSubview(nowPlayingLabel)
         nowPlayingLabel.anchorToViewTop(view: view)
 
@@ -65,8 +66,7 @@ class MoviesListViewController: BaseViewController {
     }
 
     override func didSetIsLoading(isLoading: Bool) {
-        let views = [nowPlayingLabel, nowPlayingMoviesListCollectionView, popularLabel, popularMoviesListCollectionView]
-        isLoading ? showSkeleton(in: views) : hideSkeleton(in: views)
+        isLoading ? view.showDefaultSkeleton() : view.hideDefaultSkeleton()
     }
 }
 

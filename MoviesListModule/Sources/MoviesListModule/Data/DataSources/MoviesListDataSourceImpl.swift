@@ -8,6 +8,8 @@
 import Foundation
 import NetworkModule
 
+// TODO: SWITCH RESPONSE
+
 class MoviesListDataSourceImpl: MoviesListDataSource {
     func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
         Network.sharedInstance.request(path: "/movie/now_playing?language=pt-BR&page=1", method: .get) { _, data, error in

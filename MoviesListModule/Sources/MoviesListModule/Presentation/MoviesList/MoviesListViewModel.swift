@@ -32,7 +32,7 @@ class MoviesListViewModel {
         getNowPlayingMoviesList(dispatchGroup: dispatchGroup)
         getPopularMoviesList(dispatchGroup: dispatchGroup)
         dispatchGroup.notify(queue: .main) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 self.delegate?.didGetInitialData()
                 self.delegate?.setIsLoading(false)
             }

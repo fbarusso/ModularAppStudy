@@ -38,6 +38,7 @@ public class Network {
             encoder: JSONParameterEncoder.default,
             headers: HTTPHeaders(headers)
         ).response { dataResponse in
+            self.logRequest(request: dataResponse.request)
             completion(dataResponse.response, dataResponse.data, dataResponse.error)
         }
     }
@@ -49,5 +50,13 @@ public class Network {
         ]
 
         return headers
+    }
+    
+    private func logRequest(request: URLRequest?) {
+        var log = "Request\n"
+        log.append("Method: \(request?.httpMethod ?? "Error")\n")
+        log.append("URL: \(request?.url?.absoluteString ?? "Error")\n")
+        log.append("Headers: \(String(describing: request?.headers.dictionary))\n")
+        print(log)
     }
 }
