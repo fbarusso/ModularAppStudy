@@ -17,16 +17,19 @@ class MoviesListViewModel {
 
     private let getUserNameUseCase: GetUserNameUseCase
     private let getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase
-    private let getPopularMoviesListUseCase: GetPopularMoviesListUseCase
+    private let getTopRatedMoviesListUseCase: GetTopRatedMoviesListUseCase
+    private let getUpcomingMoviesListUseCase: GetUpcomingMoviesListUseCase
 
     var userName: String?
     var nowPlayingMoviesList: [MovieEntity] = []
-    var popularMoviesList: [MovieEntity] = []
+    var topRatedMoviesList: [MovieEntity] = []
+    var upcomingMoviesList: [MovieEntity] = []
 
-    init(getUserNameUseCase: GetUserNameUseCase, getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: GetPopularMoviesListUseCase) {
+    init(getUserNameUseCase: GetUserNameUseCase, getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase, getTopRatedMoviesListUseCase: GetTopRatedMoviesListUseCase, getUpcomingMoviesListUseCase: GetUpcomingMoviesListUseCase) {
         self.getUserNameUseCase = getUserNameUseCase
         self.getNowPlayingMoviesListUseCase = getNowPlayingMoviesListUseCase
-        self.getPopularMoviesListUseCase = getPopularMoviesListUseCase
+        self.getTopRatedMoviesListUseCase = getTopRatedMoviesListUseCase
+        self.getUpcomingMoviesListUseCase = getUpcomingMoviesListUseCase
     }
 
     func getInitialData() {
@@ -35,10 +38,12 @@ class MoviesListViewModel {
         
         getUserName(dispatchGroup: dispatchGroup)
         getNowPlayingMoviesList(dispatchGroup: dispatchGroup)
-        getPopularMoviesList(dispatchGroup: dispatchGroup)
+        getTopRatedMoviesList(dispatchGroup: dispatchGroup)
+        getUpcomingMoviesList(dispatchGroup: dispatchGroup)
         
         dispatchGroup.notify(queue: .main) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            // TODO: For aesthetic purposes only, remove after
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.delegate?.didGetInitialData()
                 self.delegate?.setIsLoading(false)
             }
@@ -66,12 +71,25 @@ class MoviesListViewModel {
         }
     }
 
-    private func getPopularMoviesList(dispatchGroup: DispatchGroup) {
+    private func getTopRatedMoviesList(dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        getPopularMoviesListUseCase.getPopularMoviesListUseCase { result in
+        getTopRatedMoviesListUseCase.getTopRatedMoviesListUseCase { result in
             switch result {
             case let .success(data):
-                self.popularMoviesList = data
+                self.topRatedMoviesList = data
+            case let .failure(error):
+                self.delegate?.showMessage(title: "Erro", message: error.localizedDescription)
+            }
+            dispatchGroup.leave()
+        }
+    }
+    
+    private func getUpcomingMoviesList(dispatchGroup: DispatchGroup) {
+        dispatchGroup.enter()
+        getUpcomingMoviesListUseCase.getUpcomingMoviesListUseCase { result in
+            switch result {
+            case let .success(data):
+                self.upcomingMoviesList = data
             case let .failure(error):
                 self.delegate?.showMessage(title: "Erro", message: error.localizedDescription)
             }

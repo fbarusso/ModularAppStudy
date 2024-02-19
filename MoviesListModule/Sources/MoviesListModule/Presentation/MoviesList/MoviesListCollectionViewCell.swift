@@ -10,8 +10,9 @@ import UIKit
 
 class MoviesListCollectionViewCell: UICollectionViewCell {
     static let nowPlayingMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("nowPlayingMoviesList")
-    static let popularMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("popularMoviesList")
-
+    static let topRatedMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("topRatedMoviesList")
+    static let upcomingMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("upcomingMoviesList")
+    
     private let imageView = UIImageView()
 
     override init(frame: CGRect) {

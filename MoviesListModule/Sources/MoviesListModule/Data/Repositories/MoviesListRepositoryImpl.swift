@@ -26,8 +26,14 @@ class MoviesListRepositoryImpl: MoviesListRepository {
         }
     }
 
-    func getPopularMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
-        moviesListDataSource.getPopularMoviesList { result in
+    func getTopRatedMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
+        moviesListDataSource.getTopRatedMoviesList { result in
+            completion(result)
+        }
+    }
+    
+    func getUpcomingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
+        moviesListDataSource.getUpcomingMoviesList { result in
             completion(result)
         }
     }

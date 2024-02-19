@@ -43,9 +43,14 @@ public enum MoviesListContainer {
             return GetNowPlayingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
 
-        MoviesListContainer.shared.register(GetPopularMoviesListUseCase.self) { resolver in
+        MoviesListContainer.shared.register(GetTopRatedMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
-            return GetPopularMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
+            return GetTopRatedMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
+        }
+        
+        MoviesListContainer.shared.register(GetUpcomingMoviesListUseCase.self) { resolver in
+            let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
+            return GetUpcomingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
     }
 
@@ -53,8 +58,9 @@ public enum MoviesListContainer {
         MoviesListContainer.shared.register(MoviesListViewModel.self) { resolver in
             let getUserNameUseCase = resolver.resolve(GetUserNameUseCase.self)!
             let getNowPlayingMoviesListUseCase = resolver.resolve(GetNowPlayingMoviesListUseCase.self)!
-            let getPopularMoviesListUseCase = resolver.resolve(GetPopularMoviesListUseCase.self)!
-            return MoviesListViewModel(getUserNameUseCase: getUserNameUseCase, getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: getPopularMoviesListUseCase)
+            let getTopRatedMoviesListUseCase = resolver.resolve(GetTopRatedMoviesListUseCase.self)!
+            let getUpcomingMoviesListUseCase = resolver.resolve(GetUpcomingMoviesListUseCase.self)!
+            return MoviesListViewModel(getUserNameUseCase: getUserNameUseCase, getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase, getTopRatedMoviesListUseCase: getTopRatedMoviesListUseCase, getUpcomingMoviesListUseCase: getUpcomingMoviesListUseCase)
         }
     }
 }

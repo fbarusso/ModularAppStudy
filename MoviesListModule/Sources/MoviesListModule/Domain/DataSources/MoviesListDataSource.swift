@@ -10,5 +10,6 @@ import Foundation
 protocol MoviesListDataSource {
     func getUserName(completion: @escaping (_ userName: String?) -> Void)
     func getNowPlayingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
-    func getPopularMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
+    func getTopRatedMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
+    func getUpcomingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
 }

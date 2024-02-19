@@ -10,7 +10,7 @@ import SkeletonView
 import UIKit
 import UIKitModule
 
-class MoviesListViewController: BaseViewController {
+class MoviesListViewController: BaseScrollableViewController {
     // MARK: - Properties
 
     private let viewModel = MoviesListContainer.shared.resolve(MoviesListViewModel.self)!
@@ -22,8 +22,10 @@ class MoviesListViewController: BaseViewController {
     private let userNameLabel = CustomLabel(text: "Batatinha", font: .systemFont(ofSize: FontSize.medium, weight: .bold), isSkeletonable: true)
     private let nowPlayingLabel = CustomLabel(text: "Em cartaz", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
     private let nowPlayingMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
-    private var popularLabel = CustomLabel(text: "Populares", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
-    private let popularMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
+    private var popularLabel = CustomLabel(text: "Melhores avaliações", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
+    private let topRatedMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
+    private var upcomingLabel = CustomLabel(text: "Próximos lançamentos", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
+    private let upcomingMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
 
     // MARK: - Lifecycle
 
@@ -38,23 +40,32 @@ class MoviesListViewController: BaseViewController {
     // MARK: - Helpers
 
     private func setupView() {
-        view.isSkeletonable = true
-        view.addSubview(userNameLabel)
-        userNameLabel.anchorToViewTop(view: view)
+        scrollableContentView.isSkeletonable = true
+        addSubviewToScrollableContentView(userNameLabel)
+        userNameLabel.anchorToViewTop(view: scrollableContentView)
         
-        view.addSubview(nowPlayingLabel)
+        addSubviewToScrollableContentView(nowPlayingLabel)
         nowPlayingLabel.anchorBelow(view: userNameLabel)
 
-        view.addSubview(nowPlayingMoviesListCollectionView)
+        addSubviewToScrollableContentView(nowPlayingMoviesListCollectionView)
         nowPlayingMoviesListCollectionView.anchorBelow(view: nowPlayingLabel, horizontalPadding: .none)
         nowPlayingMoviesListCollectionView.setHeight(collectionViewHeight)
 
-        view.addSubview(popularLabel)
+        addSubviewToScrollableContentView(popularLabel)
         popularLabel.anchorBelow(view: nowPlayingMoviesListCollectionView)
 
-        view.addSubview(popularMoviesListCollectionView)
-        popularMoviesListCollectionView.anchorBelow(view: popularLabel, horizontalPadding: .none)
-        popularMoviesListCollectionView.setHeight(collectionViewHeight)
+        addSubviewToScrollableContentView(topRatedMoviesListCollectionView)
+        topRatedMoviesListCollectionView.anchorBelow(view: popularLabel, horizontalPadding: .none)
+        topRatedMoviesListCollectionView.setHeight(collectionViewHeight)
+        
+        addSubviewToScrollableContentView(upcomingLabel)
+        upcomingLabel.anchorBelow(view: topRatedMoviesListCollectionView)
+
+        addSubviewToScrollableContentView(upcomingMoviesListCollectionView)
+        upcomingMoviesListCollectionView.anchorBelow(view: upcomingLabel, horizontalPadding: .none)
+        upcomingMoviesListCollectionView.setHeight(collectionViewHeight)
+        
+        upcomingMoviesListCollectionView.anchorToSuperviewBottomOnly()
 
         setupCollectionViews()
     }
@@ -64,13 +75,17 @@ class MoviesListViewController: BaseViewController {
         nowPlayingMoviesListCollectionView.dataSource = self
         nowPlayingMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier)
 
-        popularMoviesListCollectionView.delegate = self
-        popularMoviesListCollectionView.dataSource = self
-        popularMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.popularMoviesListReuseIdentifier)
+        topRatedMoviesListCollectionView.delegate = self
+        topRatedMoviesListCollectionView.dataSource = self
+        topRatedMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.topRatedMoviesListReuseIdentifier)
+        
+        upcomingMoviesListCollectionView.delegate = self
+        upcomingMoviesListCollectionView.dataSource = self
+        upcomingMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.upcomingMoviesListReuseIdentifier)
     }
 
     override func didSetIsLoading(isLoading: Bool) {
-        isLoading ? view.showDefaultSkeleton() : view.hideDefaultSkeleton()
+        isLoading ? scrollableContentView.showDefaultSkeleton() : scrollableContentView.hideDefaultSkeleton()
     }
 }
 
@@ -81,8 +96,10 @@ extension MoviesListViewController: SkeletonCollectionViewDataSource {
         switch skeletonView {
         case nowPlayingMoviesListCollectionView:
             MoviesListCollectionViewCell.nowPlayingMoviesListReuseIdentifier
+        case topRatedMoviesListCollectionView:
+            MoviesListCollectionViewCell.topRatedMoviesListReuseIdentifier
         default:
-            MoviesListCollectionViewCell.popularMoviesListReuseIdentifier
+            MoviesListCollectionViewCell.upcomingMoviesListReuseIdentifier
         }
     }
 
@@ -90,8 +107,10 @@ extension MoviesListViewController: SkeletonCollectionViewDataSource {
         switch collectionView {
         case nowPlayingMoviesListCollectionView:
             viewModel.nowPlayingMoviesList.count
+        case topRatedMoviesListCollectionView:
+            viewModel.topRatedMoviesList.count
         default:
-            viewModel.popularMoviesList.count
+            viewModel.upcomingMoviesList.count
         }
     }
 
@@ -103,10 +122,16 @@ extension MoviesListViewController: SkeletonCollectionViewDataSource {
             cell.setup(movieEntity: viewModel.nowPlayingMoviesList[indexPath.row])
 
             return cell
-        default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.popularMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
+        case topRatedMoviesListCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.topRatedMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
 
-            cell.setup(movieEntity: viewModel.popularMoviesList[indexPath.row])
+            cell.setup(movieEntity: viewModel.topRatedMoviesList[indexPath.row])
+
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.upcomingMoviesListReuseIdentifier, for: indexPath) as! MoviesListCollectionViewCell
+
+            cell.setup(movieEntity: viewModel.upcomingMoviesList[indexPath.row])
 
             return cell
         }
@@ -127,8 +152,14 @@ extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
 
 extension MoviesListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movieEntity = collectionView == nowPlayingMoviesListCollectionView ? viewModel.nowPlayingMoviesList[indexPath.row] : viewModel.popularMoviesList[indexPath.row]
-        CoordinatorSingleton.navigate(viewController: MovieDetailsViewController(movieEntity: movieEntity))
+        switch collectionView {
+        case nowPlayingMoviesListCollectionView:
+            CoordinatorSingleton.navigate(viewController: MovieDetailsViewController(movieEntity: viewModel.nowPlayingMoviesList[indexPath.row]))
+        case topRatedMoviesListCollectionView:
+            CoordinatorSingleton.navigate(viewController: MovieDetailsViewController(movieEntity: viewModel.topRatedMoviesList[indexPath.row]))
+        default:
+            CoordinatorSingleton.navigate(viewController: MovieDetailsViewController(movieEntity: viewModel.upcomingMoviesList[indexPath.row]))
+        }
     }
 }
 
@@ -139,7 +170,7 @@ extension MoviesListViewController: MoviesListViewModelDelegate {
         DispatchQueue.main.async {
             self.userNameLabel.text = ("Olá \(self.viewModel.userName ?? ""), o que vamos assistir hoje?")
             self.nowPlayingMoviesListCollectionView.reloadData()
-            self.popularMoviesListCollectionView.reloadData()
+            self.topRatedMoviesListCollectionView.reloadData()
         }
     }
 }

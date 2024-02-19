@@ -81,7 +81,7 @@ class MovieDetailsViewController: BaseScrollableViewController {
 
         movieDetailsStackView.anchorBelow(view: overviewLabel)
 
-        anchorToScrollableContentViewBottom(view: movieDetailsStackView, paddingBottom: .big)
+        anchorToScrollableContentViewBottom(view: movieDetailsStackView)
 
         setupMovieDetails()
     }
