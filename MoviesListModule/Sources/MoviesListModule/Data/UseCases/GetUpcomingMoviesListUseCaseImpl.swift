@@ -15,7 +15,7 @@ class GetUpcomingMoviesListUseCaseImpl: GetUpcomingMoviesListUseCase {
     }
     
     func getUpcomingMoviesListUseCase(completion: @escaping (Result<[MovieEntity], NSError>) -> Void) {
-        moviesListRepository.getNowPlayingMoviesList { result in
+        moviesListRepository.getUpcomingMoviesList { result in
             completion(result)
         }
     }

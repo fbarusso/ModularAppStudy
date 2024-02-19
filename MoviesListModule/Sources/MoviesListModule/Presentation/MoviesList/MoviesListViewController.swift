@@ -171,6 +171,7 @@ extension MoviesListViewController: MoviesListViewModelDelegate {
             self.userNameLabel.text = ("Olá \(self.viewModel.userName ?? ""), o que vamos assistir hoje?")
             self.nowPlayingMoviesListCollectionView.reloadData()
             self.topRatedMoviesListCollectionView.reloadData()
+            self.upcomingMoviesListCollectionView.reloadData()
         }
     }
 }

@@ -20,13 +20,13 @@ class MoviesListDataSourceImpl: MoviesListDataSource {
     }
 
     func getTopRatedMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
-        Network.sharedInstance.request(responseType: [MovieEntity].self, path: "/movie/top_rated?language=en-US&page=1") { result in
+        Network.sharedInstance.request(responseType: [MovieEntity].self, path: "/movie/top_rated?language=pt-BR&page=1") { result in
             completion(result)
         }
     }
     
     func getUpcomingMoviesList(completion: @escaping (Result<[MovieEntity], NSError>) -> Void) {
-        Network.sharedInstance.request(responseType: [MovieEntity].self, path: "/movie/upcoming?language=en-US&page=1") { result in
+        Network.sharedInstance.request(responseType: [MovieEntity].self, path: "/movie/upcoming?language=pt-BR&page=1") { result in
             completion(result)
         }
     }
