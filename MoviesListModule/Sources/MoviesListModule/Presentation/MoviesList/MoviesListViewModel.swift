@@ -41,16 +41,12 @@ class MoviesListViewModel {
 
     private func getNowPlayingMoviesList(dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { nowPlayingMoviesList, success, error in
-            switch success {
-            case true:
-                guard let nowPlayingMoviesList else { return }
-                self.nowPlayingMoviesList = nowPlayingMoviesList
-            case false:
-                if let error {
-                    self.delegate?.showMessage(title: "Erro", message: error)
-                }
-                self.delegate?.showMessage(title: "Erro", message: "Ocorreu um erro.")
+        getNowPlayingMoviesListUseCase.getNowPlayingMoviesList { result in
+            switch result {
+            case let .success(data):
+                self.nowPlayingMoviesList = data
+            case let .failure(error):
+                self.delegate?.showMessage(title: "Erro", message: error.localizedDescription)
             }
             dispatchGroup.leave()
         }
@@ -58,16 +54,12 @@ class MoviesListViewModel {
 
     private func getPopularMoviesList(dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        getPopularMoviesListUseCase.getPopularMoviesListUseCase { popularMoviesList, success, error in
-            switch success {
-            case true:
-                guard let popularMoviesList else { return }
-                self.popularMoviesList = popularMoviesList
-            case false:
-                if let error {
-                    self.delegate?.showMessage(title: "Erro", message: error)
-                }
-                self.delegate?.showMessage(title: "Erro", message: "Ocorreu um erro.")
+        getPopularMoviesListUseCase.getPopularMoviesListUseCase { result in
+            switch result {
+            case let .success(data):
+                self.popularMoviesList = data
+            case let .failure(error):
+                self.delegate?.showMessage(title: "Erro", message: error.localizedDescription)
             }
             dispatchGroup.leave()
         }

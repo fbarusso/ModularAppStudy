@@ -11,9 +11,11 @@ import Foundation
 public class Network {
     public static let sharedInstance = Network()
 
-    var alamofireManager: Alamofire.Session
+    private static let networkResponseParseError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Ocorreu um erro inesperado."])
 
-    init() {
+    private var alamofireManager: Alamofire.Session
+
+    private init() {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 20
         configuration.timeoutIntervalForResource = 20
@@ -21,12 +23,13 @@ public class Network {
         alamofireManager = Alamofire.Session(configuration: configuration)
     }
 
-    public func request(
+    public func request<T: Decodable>(
+        responseType _: T.Type,
         path: String,
-        method: HTTPMethod,
+        method: HTTPMethod = .get,
         headers: [String: String]? = nil,
         parameters: [String: String]? = nil,
-        completion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void
+        completion: @escaping (_ result: Result<T, NSError>) -> Void
     ) {
         let headers = headers ?? createDefaultHeaders()
         let url = (NetworkConstants.baseURL + path)
@@ -35,11 +38,19 @@ public class Network {
             url,
             method: method,
             parameters: parameters,
-            encoder: JSONParameterEncoder.default,
             headers: HTTPHeaders(headers)
-        ).response { dataResponse in
-            self.logRequest(request: dataResponse.request)
-            completion(dataResponse.response, dataResponse.data, dataResponse.error)
+        ).responseDecodable(of: NetworkResponse<T>.self) { response in
+            self.logRequest(request: response.request)
+            switch response.result {
+            case let .success(data):
+                if let data = data.results {
+                    completion(.success(data))
+                } else {
+                    completion(.failure(Network.networkResponseParseError))
+                }
+            case let .failure(error):
+                completion(.failure(error as NSError))
+            }
         }
     }
 
@@ -51,7 +62,7 @@ public class Network {
 
         return headers
     }
-    
+
     private func logRequest(request: URLRequest?) {
         var log = "Request\n"
         log.append("Method: \(request?.httpMethod ?? "Error")\n")

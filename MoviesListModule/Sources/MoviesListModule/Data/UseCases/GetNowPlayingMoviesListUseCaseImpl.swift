@@ -14,9 +14,9 @@ class GetNowPlayingMoviesListUseCaseImpl: GetNowPlayingMoviesListUseCase {
         self.moviesListRepository = moviesListRepository
     }
 
-    func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
-        moviesListRepository.getNowPlayingMoviesList { nowPlayingMoviesList, success, error in
-            completion(nowPlayingMoviesList, success, error)
+    func getNowPlayingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
+        moviesListRepository.getNowPlayingMoviesList { result in
+            completion(result)
         }
     }
 }

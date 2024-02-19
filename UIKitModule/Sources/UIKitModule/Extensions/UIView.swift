@@ -157,11 +157,11 @@ public extension UIView {
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
     }
-    
+
     func showDefaultSkeleton() {
         showAnimatedGradientSkeleton(usingGradient: .init(baseColor: UIColor(customColor: .skeletonGradient) ?? .midnightBlue), transition: .crossDissolve(SkeletonViewConstants.transitionDuration))
     }
-    
+
     func hideDefaultSkeleton() {
         hideSkeleton(transition: .crossDissolve(SkeletonViewConstants.transitionDuration))
     }

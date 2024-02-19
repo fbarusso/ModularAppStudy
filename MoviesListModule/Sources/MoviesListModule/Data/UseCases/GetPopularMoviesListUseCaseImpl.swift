@@ -14,9 +14,9 @@ class GetPopularMoviesListUseCaseImpl: GetPopularMoviesListUseCase {
         self.moviesListRepository = moviesListRepository
     }
 
-    func getPopularMoviesListUseCase(completion: @escaping (_ popularMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
-        moviesListRepository.getPopularMoviesList { popularMoviesList, success, error in
-            completion(popularMoviesList, success, error)
+    func getPopularMoviesListUseCase(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
+        moviesListRepository.getPopularMoviesList { result in
+            completion(result)
         }
     }
 }

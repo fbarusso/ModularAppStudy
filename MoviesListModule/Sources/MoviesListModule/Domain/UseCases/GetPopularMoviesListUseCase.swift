@@ -8,5 +8,5 @@
 import Foundation
 
 protocol GetPopularMoviesListUseCase {
-    func getPopularMoviesListUseCase(completion: @escaping (_ popularMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void)
+    func getPopularMoviesListUseCase(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
 }

@@ -14,15 +14,15 @@ class MoviesListRepositoryImpl: MoviesListRepository {
         self.moviesListDataSource = moviesListDataSource
     }
 
-    func getNowPlayingMoviesList(completion: @escaping (_ nowPlayingMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
-        moviesListDataSource.getNowPlayingMoviesList { nowPlayingMoviesList, success, error in
-            completion(nowPlayingMoviesList, success, error)
+    func getNowPlayingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
+        moviesListDataSource.getNowPlayingMoviesList { result in
+            completion(result)
         }
     }
 
-    func getPopularMoviesList(completion: @escaping (_ popularMoviesList: [MovieEntity]?, _ success: Bool, _ error: String?) -> Void) {
-        moviesListDataSource.getPopularMoviesList { popularMoviesList, success, error in
-            completion(popularMoviesList, success, error)
+    func getPopularMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
+        moviesListDataSource.getPopularMoviesList { result in
+            completion(result)
         }
     }
 }
