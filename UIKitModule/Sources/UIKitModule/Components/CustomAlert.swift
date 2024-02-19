@@ -42,6 +42,7 @@ class CustomAlert {
 
         label.font = .systemFont(ofSize: FontSize.medium, weight: .bold)
         label.textColor = UIColor(customColor: .themeDark)
+        label.textAlignment = .center
 
         return label
     }()

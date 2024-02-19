@@ -13,7 +13,7 @@ class GetUserNameUseCaseImpl: GetUserNameUseCase {
     init(moviesListRepository: MoviesListRepository) {
         self.moviesListRepository = moviesListRepository
     }
-    
+
     func getUserName(completion: @escaping (String?) -> Void) {
         moviesListRepository.getUserName { userName in
             completion(userName)

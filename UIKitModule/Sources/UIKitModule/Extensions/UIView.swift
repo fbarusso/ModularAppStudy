@@ -159,7 +159,7 @@ public extension UIView {
     }
 
     func showDefaultSkeleton() {
-        showAnimatedGradientSkeleton(usingGradient: .init(baseColor: UIColor(customColor: .skeletonGradient) ?? .midnightBlue), transition: .crossDissolve(SkeletonViewConstants.transitionDuration))
+        showAnimatedGradientSkeleton(usingGradient: .init(baseColor: UIColor(customColor: .skeletonGradient)), transition: .crossDissolve(SkeletonViewConstants.transitionDuration))
     }
 
     func hideDefaultSkeleton() {

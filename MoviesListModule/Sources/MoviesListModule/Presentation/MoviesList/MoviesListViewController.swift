@@ -40,10 +40,11 @@ class MoviesListViewController: BaseScrollableViewController {
     // MARK: - Helpers
 
     private func setupView() {
+        title = "Filmes"
         scrollableContentView.isSkeletonable = true
         addSubviewToScrollableContentView(userNameLabel)
         userNameLabel.anchorToViewTop(view: scrollableContentView)
-        
+
         addSubviewToScrollableContentView(nowPlayingLabel)
         nowPlayingLabel.anchorBelow(view: userNameLabel)
 
@@ -57,14 +58,14 @@ class MoviesListViewController: BaseScrollableViewController {
         addSubviewToScrollableContentView(topRatedMoviesListCollectionView)
         topRatedMoviesListCollectionView.anchorBelow(view: popularLabel, horizontalPadding: .none)
         topRatedMoviesListCollectionView.setHeight(collectionViewHeight)
-        
+
         addSubviewToScrollableContentView(upcomingLabel)
         upcomingLabel.anchorBelow(view: topRatedMoviesListCollectionView)
 
         addSubviewToScrollableContentView(upcomingMoviesListCollectionView)
         upcomingMoviesListCollectionView.anchorBelow(view: upcomingLabel, horizontalPadding: .none)
         upcomingMoviesListCollectionView.setHeight(collectionViewHeight)
-        
+
         upcomingMoviesListCollectionView.anchorToSuperviewBottomOnly()
 
         setupCollectionViews()
@@ -78,7 +79,7 @@ class MoviesListViewController: BaseScrollableViewController {
         topRatedMoviesListCollectionView.delegate = self
         topRatedMoviesListCollectionView.dataSource = self
         topRatedMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.topRatedMoviesListReuseIdentifier)
-        
+
         upcomingMoviesListCollectionView.delegate = self
         upcomingMoviesListCollectionView.dataSource = self
         upcomingMoviesListCollectionView.register(MoviesListCollectionViewCell.self, forCellWithReuseIdentifier: MoviesListCollectionViewCell.upcomingMoviesListReuseIdentifier)
@@ -168,7 +169,7 @@ extension MoviesListViewController: UICollectionViewDelegate {
 extension MoviesListViewController: MoviesListViewModelDelegate {
     func didGetInitialData() {
         DispatchQueue.main.async {
-            self.userNameLabel.text = ("Olá \(self.viewModel.userName ?? ""), o que vamos assistir hoje?")
+            self.userNameLabel.text = "Olá \(self.viewModel.userName ?? ""), o que vamos assistir hoje?"
             self.nowPlayingMoviesListCollectionView.reloadData()
             self.topRatedMoviesListCollectionView.reloadData()
             self.upcomingMoviesListCollectionView.reloadData()

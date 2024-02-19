@@ -20,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appCoordinator = AppCoordinator(navigationController: navigationController)
         appCoordinator.startNavigation()
 
+        setupNavigationBarAppearance()
+
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
@@ -51,5 +53,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+
+    private func setupNavigationBarAppearance() {
+        let navigationAppearance = NavigationBarAppearanceManager.customNavigationBarAppearance()
+
+        let appearance = UINavigationBar.appearance()
+        appearance.standardAppearance = navigationAppearance
+        appearance.compactAppearance = navigationAppearance
+        appearance.scrollEdgeAppearance = navigationAppearance
+        appearance.compactScrollEdgeAppearance = navigationAppearance
     }
 }

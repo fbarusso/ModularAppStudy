@@ -1,6 +1,6 @@
 //
 //  GetUpcomingMoviesListUseCaseImpl.swift
-//  
+//
 //
 //  Created by MB Labs on 19/02/24.
 //
@@ -13,7 +13,7 @@ class GetUpcomingMoviesListUseCaseImpl: GetUpcomingMoviesListUseCase {
     init(moviesListRepository: MoviesListRepository) {
         self.moviesListRepository = moviesListRepository
     }
-    
+
     func getUpcomingMoviesListUseCase(completion: @escaping (Result<[MovieEntity], NSError>) -> Void) {
         moviesListRepository.getUpcomingMoviesList { result in
             completion(result)

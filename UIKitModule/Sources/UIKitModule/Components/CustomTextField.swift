@@ -11,7 +11,7 @@ public class CustomTextField: UITextField {
     private var padding = UIEdgeInsets(top: 0, left: 16.0, bottom: 0, right: 16.0)
 
     public convenience init(placeholder: String? = nil,
-                            paceholderColor: UIColor? = UIColor(customColor: .themeLight)?.withAlphaComponent(0.6),
+                            paceholderColor: UIColor = UIColor(customColor: .themeLight).withAlphaComponent(0.6),
                             height: CGFloat = 42.0,
                             textColor: UIColor? = UIColor(customColor: .themeLight),
                             borderWidth: CGFloat = 2.0,
@@ -21,7 +21,7 @@ public class CustomTextField: UITextField {
     {
         self.init(frame: .zero)
 
-        attributedPlaceholder = NSAttributedString(string: placeholder ?? .empty, attributes: [NSAttributedString.Key.foregroundColor: paceholderColor ?? .white])
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? .empty, attributes: [NSAttributedString.Key.foregroundColor: paceholderColor])
 
         setHeight(height)
 

@@ -8,7 +8,7 @@
 import UIKit
 
 public extension UIColor {
-    convenience init?(hex: String) {
+    convenience init(hex: String) {
         let r, g, b, a: CGFloat
 
         if hex.hasPrefix("#") {
@@ -34,10 +34,10 @@ public extension UIColor {
                 }
             }
         }
-        return nil
+        self.init(.red)
     }
 
-    convenience init?(customColor: CustomColor) {
+    convenience init(customColor: CustomColor) {
         self.init(hex: customColor.rawValue)
     }
 }

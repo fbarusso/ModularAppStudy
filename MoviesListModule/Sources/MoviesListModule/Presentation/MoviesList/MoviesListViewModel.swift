@@ -35,12 +35,12 @@ class MoviesListViewModel {
     func getInitialData() {
         delegate?.setIsLoading(true)
         let dispatchGroup = DispatchGroup()
-        
+
         getUserName(dispatchGroup: dispatchGroup)
         getNowPlayingMoviesList(dispatchGroup: dispatchGroup)
         getTopRatedMoviesList(dispatchGroup: dispatchGroup)
         getUpcomingMoviesList(dispatchGroup: dispatchGroup)
-        
+
         dispatchGroup.notify(queue: .main) {
             // TODO: For aesthetic purposes only, remove after
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -49,7 +49,7 @@ class MoviesListViewModel {
             }
         }
     }
-    
+
     private func getUserName(dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
         getUserNameUseCase.getUserName { userName in
@@ -83,7 +83,7 @@ class MoviesListViewModel {
             dispatchGroup.leave()
         }
     }
-    
+
     private func getUpcomingMoviesList(dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
         getUpcomingMoviesListUseCase.getUpcomingMoviesListUseCase { result in

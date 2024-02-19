@@ -37,7 +37,7 @@ public enum MoviesListContainer {
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetUserNameUseCaseImpl(moviesListRepository: moviesListRepository)
         }
-        
+
         MoviesListContainer.shared.register(GetNowPlayingMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetNowPlayingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
@@ -47,7 +47,7 @@ public enum MoviesListContainer {
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetTopRatedMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
         }
-        
+
         MoviesListContainer.shared.register(GetUpcomingMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetUpcomingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)

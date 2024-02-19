@@ -12,7 +12,7 @@ class MoviesListDataSourceImpl: MoviesListDataSource {
     func getUserName(completion: @escaping (_ userName: String?) -> Void) {
         completion(UserDefaults.standard.string(forKey: UserDefaultsKeys.userName))
     }
-    
+
     func getNowPlayingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
         Network.sharedInstance.request(responseType: [MovieEntity].self, path: "/movie/now_playing?language=pt-BR&page=1") { result in
             completion(result)
@@ -24,7 +24,7 @@ class MoviesListDataSourceImpl: MoviesListDataSource {
             completion(result)
         }
     }
-    
+
     func getUpcomingMoviesList(completion: @escaping (Result<[MovieEntity], NSError>) -> Void) {
         Network.sharedInstance.request(responseType: [MovieEntity].self, path: "/movie/upcoming?language=pt-BR&page=1") { result in
             completion(result)

@@ -49,8 +49,25 @@ class LoginViewController: BaseViewController {
         super.viewDidLoad()
         setupView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
+    // MARK: - Helpers
 
     private func setupView() {
+        title = "Login"
+        
+
         view.addSubview(titleLabel)
         titleLabel.anchorToViewTop(view: view, paddingTop: .veryBig, horizontalPadding: .none)
 

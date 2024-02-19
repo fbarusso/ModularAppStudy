@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct UserDefaultsKeys {
+public enum UserDefaultsKeys {
     public static let userName = "UserName"
 }
