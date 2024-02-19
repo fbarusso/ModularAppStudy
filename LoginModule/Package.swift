@@ -21,13 +21,14 @@ let package = Package(
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(path: "../UIKitModule"),
         .package(path: "../CoordinatorModule"),
+        .package(path: "../NetworkModule"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "LoginModule",
-            dependencies: ["Swinject", "UIKitModule", "CoordinatorModule"]
+            dependencies: ["Swinject", "UIKitModule", "CoordinatorModule", "NetworkModule"]
         ),
         .testTarget(
             name: "LoginModuleTests",

@@ -15,13 +15,16 @@ protocol MoviesListViewModelDelegate: BaseViewModelDelegate {
 class MoviesListViewModel {
     weak var delegate: MoviesListViewModelDelegate?
 
+    private let getUserNameUseCase: GetUserNameUseCase
     private let getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase
     private let getPopularMoviesListUseCase: GetPopularMoviesListUseCase
 
+    var userName: String?
     var nowPlayingMoviesList: [MovieEntity] = []
     var popularMoviesList: [MovieEntity] = []
 
-    init(getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: GetPopularMoviesListUseCase) {
+    init(getUserNameUseCase: GetUserNameUseCase, getNowPlayingMoviesListUseCase: GetNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: GetPopularMoviesListUseCase) {
+        self.getUserNameUseCase = getUserNameUseCase
         self.getNowPlayingMoviesListUseCase = getNowPlayingMoviesListUseCase
         self.getPopularMoviesListUseCase = getPopularMoviesListUseCase
     }
@@ -29,13 +32,24 @@ class MoviesListViewModel {
     func getInitialData() {
         delegate?.setIsLoading(true)
         let dispatchGroup = DispatchGroup()
+        
+        getUserName(dispatchGroup: dispatchGroup)
         getNowPlayingMoviesList(dispatchGroup: dispatchGroup)
         getPopularMoviesList(dispatchGroup: dispatchGroup)
+        
         dispatchGroup.notify(queue: .main) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 self.delegate?.didGetInitialData()
                 self.delegate?.setIsLoading(false)
             }
+        }
+    }
+    
+    private func getUserName(dispatchGroup: DispatchGroup) {
+        dispatchGroup.enter()
+        getUserNameUseCase.getUserName { userName in
+            self.userName = userName
+            dispatchGroup.leave()
         }
     }
 

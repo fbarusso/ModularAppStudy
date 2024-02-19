@@ -19,6 +19,7 @@ class MoviesListViewController: BaseViewController {
 
     // MARK: - Components
 
+    private let userNameLabel = CustomLabel(text: "Batatinha", font: .systemFont(ofSize: FontSize.medium, weight: .bold), isSkeletonable: true)
     private let nowPlayingLabel = CustomLabel(text: "Em cartaz", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
     private let nowPlayingMoviesListCollectionView = CustomCarousel(scrollDirection: .horizontal)
     private var popularLabel = CustomLabel(text: "Populares", font: .systemFont(ofSize: FontSize.big, weight: .bold), isSkeletonable: true)
@@ -38,8 +39,11 @@ class MoviesListViewController: BaseViewController {
 
     private func setupView() {
         view.isSkeletonable = true
+        view.addSubview(userNameLabel)
+        userNameLabel.anchorToViewTop(view: view)
+        
         view.addSubview(nowPlayingLabel)
-        nowPlayingLabel.anchorToViewTop(view: view)
+        nowPlayingLabel.anchorBelow(view: userNameLabel)
 
         view.addSubview(nowPlayingMoviesListCollectionView)
         nowPlayingMoviesListCollectionView.anchorBelow(view: nowPlayingLabel, horizontalPadding: .none)
@@ -132,7 +136,10 @@ extension MoviesListViewController: UICollectionViewDelegate {
 
 extension MoviesListViewController: MoviesListViewModelDelegate {
     func didGetInitialData() {
-        nowPlayingMoviesListCollectionView.reloadData()
-        popularMoviesListCollectionView.reloadData()
+        DispatchQueue.main.async {
+            self.userNameLabel.text = ("Olá \(self.viewModel.userName ?? ""), o que vamos assistir hoje?")
+            self.nowPlayingMoviesListCollectionView.reloadData()
+            self.popularMoviesListCollectionView.reloadData()
+        }
     }
 }

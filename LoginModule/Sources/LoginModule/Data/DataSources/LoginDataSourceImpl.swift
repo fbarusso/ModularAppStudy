@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import NetworkModule
 
 class LoginDataSourceImpl: LoginDataSource {
     func saveUserName(userName: String) {
-        UserDefaults.standard.set(userName, forKey: "UserName")
+        UserDefaults.standard.set(userName, forKey: UserDefaultsKeys.userName)
     }
 }

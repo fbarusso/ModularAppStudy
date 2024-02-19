@@ -8,6 +8,7 @@
 import Foundation
 
 protocol MoviesListRepository {
+    func getUserName(completion: @escaping (_ userName: String?) -> Void)
     func getNowPlayingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
     func getPopularMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void)
 }

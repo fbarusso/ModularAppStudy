@@ -63,7 +63,9 @@ open class BaseViewController: UIViewController {
 
 extension BaseViewController: BaseViewModelDelegate {
     public func showMessage(title: String, message: String) {
-        customAlert.showAlert(title: title, message: message, on: self)
+        DispatchQueue.main.async {
+            self.customAlert.showAlert(title: title, message: message, on: self)
+        }
     }
 
     public func setIsLoading(_ isLoading: Bool) {

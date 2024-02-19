@@ -13,6 +13,12 @@ class MoviesListRepositoryImpl: MoviesListRepository {
     init(moviesListDataSource: MoviesListDataSource) {
         self.moviesListDataSource = moviesListDataSource
     }
+    
+    func getUserName(completion: @escaping (_ userName: String?) -> Void) {
+        moviesListDataSource.getUserName { userName in
+            completion(userName)
+        }
+    }
 
     func getNowPlayingMoviesList(completion: @escaping (_ result: Result<[MovieEntity], NSError>) -> Void) {
         moviesListDataSource.getNowPlayingMoviesList { result in

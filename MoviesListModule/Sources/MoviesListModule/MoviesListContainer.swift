@@ -33,6 +33,11 @@ public enum MoviesListContainer {
     }
 
     private static func registerUseCases() {
+        MoviesListContainer.shared.register(GetUserNameUseCase.self) { resolver in
+            let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
+            return GetUserNameUseCaseImpl(moviesListRepository: moviesListRepository)
+        }
+        
         MoviesListContainer.shared.register(GetNowPlayingMoviesListUseCase.self) { resolver in
             let moviesListRepository = resolver.resolve(MoviesListRepository.self)!
             return GetNowPlayingMoviesListUseCaseImpl(moviesListRepository: moviesListRepository)
@@ -46,9 +51,10 @@ public enum MoviesListContainer {
 
     private static func registerViewModels() {
         MoviesListContainer.shared.register(MoviesListViewModel.self) { resolver in
+            let getUserNameUseCase = resolver.resolve(GetUserNameUseCase.self)!
             let getNowPlayingMoviesListUseCase = resolver.resolve(GetNowPlayingMoviesListUseCase.self)!
             let getPopularMoviesListUseCase = resolver.resolve(GetPopularMoviesListUseCase.self)!
-            return MoviesListViewModel(getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: getPopularMoviesListUseCase)
+            return MoviesListViewModel(getUserNameUseCase: getUserNameUseCase, getNowPlayingMoviesListUseCase: getNowPlayingMoviesListUseCase, getPopularMoviesListUseCase: getPopularMoviesListUseCase)
         }
     }
 }
