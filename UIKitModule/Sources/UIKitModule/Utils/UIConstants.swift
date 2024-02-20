@@ -24,7 +24,7 @@ public enum VerticalPadding: CGFloat {
 public enum FontSize {
     public static let small = 12.0
     public static let medium = 16.0
-    public static let big = 32.0
+    public static let big = 20.0
     public static let veryBig = 48.0
 }
 

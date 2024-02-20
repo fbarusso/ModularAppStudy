@@ -65,7 +65,7 @@ public extension UIView {
         ])
     }
 
-    func anchorBelow(view: UIView, paddingTop: VerticalPadding = .medium, horizontalPadding: HorizontalPadding = .small) {
+    func anchorBelow(view: UIView, paddingTop: VerticalPadding = .small, horizontalPadding: HorizontalPadding = .small) {
         guard let superview else { return }
 
         translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ public extension UIView {
         ])
     }
 
-    func anchorAbove(view: UIView, paddingBottom: VerticalPadding = .medium, horizontalPadding: HorizontalPadding = .small) {
+    func anchorAbove(view: UIView, paddingBottom: VerticalPadding = .small, horizontalPadding: HorizontalPadding = .small) {
         guard let superview else { return }
 
         translatesAutoresizingMaskIntoConstraints = false

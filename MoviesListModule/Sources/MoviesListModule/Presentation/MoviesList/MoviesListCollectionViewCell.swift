@@ -7,6 +7,7 @@
 
 import SkeletonView
 import UIKit
+import UIKitModule
 
 class MoviesListCollectionViewCell: UICollectionViewCell {
     static let nowPlayingMoviesListReuseIdentifier = String(describing: MoviesListCollectionViewCell.self).appending("nowPlayingMoviesList")
@@ -20,7 +21,8 @@ class MoviesListCollectionViewCell: UICollectionViewCell {
 
         isSkeletonable = true
         contentView.isSkeletonable = true
-
+        contentView.layer.cornerRadius = CornerRadius.small
+        contentView.layer.masksToBounds = true
         contentView.addSubview(imageView)
         imageView.isSkeletonable = true
         imageView.fillSuperview()

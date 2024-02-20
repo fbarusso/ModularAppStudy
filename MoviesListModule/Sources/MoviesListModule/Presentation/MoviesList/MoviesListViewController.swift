@@ -14,7 +14,7 @@ class MoviesListViewController: BaseScrollableViewController {
     // MARK: - Properties
 
     private let viewModel = MoviesListContainer.shared.resolve(MoviesListViewModel.self)!
-    private let collectionViewHeight = 200.0
+    private let collectionViewHeight = 180.0
     private let collectionViewCellWidthRatio = 0.66
 
     // MARK: - Components
